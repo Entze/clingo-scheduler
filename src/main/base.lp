@@ -119,3 +119,34 @@ area_day_lequarterhours(Area,Day,N) :-
     slot(Slot), max(Slot),
     Slot = (Day, Hour, Quarterhour),
     area_untilslot_lequarterhours(Area,Slot,N).
+
+area_weeklyuntilslot_lequarterhours(Area, Min, Span) :-
+    area(Area), slot(Min),
+    Min = (Day, Hour, Quarterhour),
+    __weekspan(Span),
+    min(Min), min(Day).
+area_weeklyuntilslot_lequarterhours(Area, Slot, N) :-
+    area(Area), slot(Slot),
+    slot(Pred),
+    succ(Pred, Slot),
+    area_weeklyuntilslot_lequarterhours(Area, Pred, N).
+area_weeklyuntilslot_lequarterhours(Area, Slot, N) :-
+    area(Area), slot(Slot),
+    Slot = (Day1, Hour1, Quarterhour1),
+    slot(Pred),
+    Pred = (Day2, Hour2, Quarterhour2),
+    succ(Day1, Day2),
+    min(Slot), max(Pred),
+    area_weeklyuntilslot_lequarterhours(Area, Pred, N).
+area_weeklyuntilslot_lequarterhours(Area, Slot, N-1) :-
+    area(Area), slot(Slot),
+    slot(Pred),
+    succ(Pred, Slot),
+    slot_area(Slot, Area),
+    area_weeklyuntilslot_lequarterhours(Area, Pred, N).
+area_weekly_lequarterhours(Area, N) :-
+    area(Area), slot(Slot),
+    max(Slot),
+    Slot = (Day, Hour, Quarterhour),
+    max(Day),
+    area_weeklyuntilslot_lequarterhours(Area, Slot, N).
