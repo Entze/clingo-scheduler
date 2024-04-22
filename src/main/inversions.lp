@@ -63,7 +63,7 @@ inversion(area_day_overbooked, (Area,Day,N)) :-
 inversion(area_day_underbooked, (Area,Day,N)) :-
     area(Area), day(Day),
     area_dailyminquarterhours(Area,M),
-    area_untilslot_lequarterhours(Area,Day,N),
+    area_day_lequarterhours(Area,Day,N),
     N < M.
 
 
