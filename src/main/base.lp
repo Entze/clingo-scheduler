@@ -56,6 +56,11 @@ area_untilslot_gequarterhours(Area,Slot,N+1) :-
     succ(Pred, Slot),
     slot_area(Slot,Area),
     area_untilslot_gequarterhours(Area,Pred,N).
+area_day_gequarterhours(Area, Day, N) :-
+    area(Area), day(Day),
+    slot(Slot), max(Slot),
+    Slot = (Day, Hour, Quarterhour),
+    area_untilslot_gequarterhours(Area, Slot, N).
 
 area_weeklyuntilslot_gequarterhours(Area, Min, 0) :-
     area(Area), slot(Min),
@@ -100,3 +105,8 @@ area_untilslot_lequarterhours(Area,Slot,N-1) :-
     slot(Slot), succ(Pred, Slot),
     not slot_area(Slot, Area),
     area_untilslot_lequarterhours(Area,Pred,N).
+area_day_lequarterhours(Area,Day,N) :-
+    area(Area), day(Day),
+    slot(Slot), max(Slot),
+    Slot = (Day, Hour, Quarterhour),
+    area_untilslot_lequarterhours(Area,Slot,N).
