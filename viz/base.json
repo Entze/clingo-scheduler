@@ -1,0 +1,68 @@
+{
+  "description": [
+    {
+      "id": "name",
+      "title": "Timeblock"
+    },
+    {
+      "id": "info",
+      "title": "Add. info",
+      "type": "content"
+    },
+    {
+      "id": "cadence",
+      "title": "Cadence",
+      "type": "content"
+    }
+  ],
+  "courses": {},
+  "defaults": {
+    "duration": 0.25
+  },
+  "general": {
+    "period": "Standard Week",
+    "person": "Lukas Grassauer",
+    "times": [
+      {
+        "end": 9,
+        "start": 8
+      },
+      {
+        "end": 10,
+        "start": 9
+      },
+      {
+        "end": 11,
+        "start": 10
+      },
+      {
+        "end": 12,
+        "start": 11
+      },
+      {
+        "end": 13,
+        "start": 12
+      },
+      {
+        "end": 14,
+        "start": 13
+      },
+      {
+        "end": 15,
+        "start": 14
+      },
+      {
+        "end": 16,
+        "start": 15
+      },
+      {
+        "end": 17,
+        "start": 16
+      },
+      {
+        "end": 18,
+        "start": 17
+      }
+    ]
+  }
+}
