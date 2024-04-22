@@ -176,10 +176,18 @@ inversion(beginarea_too_early, (Day, N)) :-
 
 %%% area_overbooked
 
-%TODO
+inversion(area_overbooked, (Area, N)) :-
+    area(Area),
+    area_weekly_gequarterhours(Area, N),
+    area_weeklymaxquarterhours(Area, M),
+    N > M.
 
 %%% area_underbooked
 
-%TODO
+inversion(area_overbooked, (Area, N)) :-
+    area(Area),
+    area_weekly_lequarterhours(Area, N),
+    area_weeklyminquarterhours(Area, M),
+    N < M.
 
 #show inversion/2.
