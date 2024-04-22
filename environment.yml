@@ -1,0 +1,5 @@
+name: dev.scheduler
+channels:
+  - conda-forge
+dependencies:
+  - clingo==5.7.1
