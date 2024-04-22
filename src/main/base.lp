@@ -142,7 +142,7 @@ area_weeklyuntilslot_lequarterhours(Area, Slot, N-1) :-
     area(Area), slot(Slot),
     slot(Pred),
     succ(Pred, Slot),
-    slot_area(Slot, Area),
+    not slot_area(Slot, Area),
     area_weeklyuntilslot_lequarterhours(Area, Pred, N).
 area_weekly_lequarterhours(Area, N) :-
     area(Area), slot(Slot),
