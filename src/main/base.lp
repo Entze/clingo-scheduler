@@ -44,6 +44,15 @@ span(B, B, 0) :- succ(B,_).
 span(A, B, 1) :- succ(A,B).
 span(A, C, N+1) :- succ(A,B), span(B,C,N).
 
+__weekspan(W) :-
+    W = #sum { Span,Day :
+                        day(Day),
+                        min(MinSlot), max(MaxSlot),
+                        MinSlot = (Day, MinHour, MinQuarterhour),
+                        MaxSlot = (Day, MaxHour, MaxQuarterhour),
+                        span(MinSlot, MaxSlot, Span)
+            }.
+
 area_untilslot_gequarterhours(Area,Min,0) :-
     area(Area), slot(Min),
     min(Min).

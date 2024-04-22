@@ -119,17 +119,9 @@ inversion(overbooked_weekly_quarterhours,(N,)) :-
 
 %%% underbooked_weekly_quarterhours
 
-__inversion_weekspan(W) :-
-    W = #sum { Span,Day :
-                        day(Day),
-                        min(MinSlot), max(MaxSlot),
-                        MinSlot = (Day, MinHour, MinQuarterhour),
-                        MaxSlot = (Day, MaxHour, MaxQuarterhour),
-                        span(MinSlot, MaxSlot, Span)
-            }.
 __inversion_untilslot_lequarterhours(MinSlot, WeekSpan) :-
     slot(MinSlot), min(MinSlot),
-    __inversion_weekspan(WeekSpan).
+    __weekspan(WeekSpan).
 __inversion_untilslot_lequarterhours(Slot, N) :-
     slot(Slot),
     slot(Pred), succ(Pred,Slot),
