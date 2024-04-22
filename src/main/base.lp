@@ -138,6 +138,7 @@ area_weeklyuntilslot_lequarterhours(Area, Slot, N) :-
     succ(Day1, Day2),
     min(Slot), max(Pred),
     area_weeklyuntilslot_lequarterhours(Area, Pred, N).
+%% TODO: Decrease on day-switch as well
 area_weeklyuntilslot_lequarterhours(Area, Slot, N-1) :-
     area(Area), slot(Slot),
     slot(Pred),
