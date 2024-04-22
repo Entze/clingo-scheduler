@@ -44,4 +44,3 @@ penalty(endarea_too_late, 1, level_endarea_too_late).
 penalty(beginarea_too_early, 1, level_beginarea_too_early).
 
 penalty(context_switch,1,level_context_switch).
-

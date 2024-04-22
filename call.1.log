@@ -517,4 +517,3 @@ Equivalences : 1095844  (Atom=Atom: 7224 Body=Body: 9394 Other: 1079226)
 Tight        : Yes
 Variables    : 532990   (Eliminated:    0 Frozen: 5282)
 Constraints  : 1739846  (Binary:  69.5% Ternary:  30.4% Other:   0.1%)
-

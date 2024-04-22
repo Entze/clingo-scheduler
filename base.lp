@@ -100,5 +100,3 @@ area_untilslot_lequarterhours(Area,Slot,N-1) :-
     slot(Slot), succ(Pred, Slot),
     not slot_area(Slot, Area),
     area_untilslot_lequarterhours(Area,Pred,N).
-
-

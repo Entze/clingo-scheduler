@@ -163,4 +163,3 @@ area_fluid_gap(Area, Q - P) :-
     __area_fluid_ispercentage(Area, P),
     __area_fluid_shouldpercentage(Area,Q),
     P > Q.
-
