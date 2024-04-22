@@ -3,3 +3,4 @@ channels:
   - conda-forge
 dependencies:
   - clingo==5.7.1
+  - pre-commit==3.7.0
