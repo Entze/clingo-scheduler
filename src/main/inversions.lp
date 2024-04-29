@@ -153,30 +153,26 @@ inversion(weekly_underbooked,(N,)) :-
 
 %%% endarea_too_late
 
-% TODO: rewrite to a inversion/3 variant.
-
-inversion(endarea_too_late, (Day, N)) :-
+inversion(endarea_too_late, N, (Day,)) :-
     day(Day),
-    slot(LastSlot), slot(EarlierSlot),
-    span(EarlierSlot, LastSlot, N),
-    lt(EarlierSlot, LastSlot),
+    slot(EndSlot), slot(FirstSlot),
+    min(FirstSlot),
+    span(FirstSlot, EndSlot, N),
     area(Area), endarea(Area),
-    LastSlot = (Day, Hour, Quarterhour),
-    slot_area(LastSlot, Area).
+    EndSlot = (Day, Hour, Quarterhour),
+    slot_area(EndSlot, Area).
 
 
 %%% beginarea_too_early
 
-% TODO: rewrite to a inversion/3 variant.
-
-inversion(beginarea_too_early, (Day, N)) :-
+inversion(beginarea_too_early, N, (Day,)) :-
     day(Day),
-    slot(FirstSlot), slot(LaterSlot),
-    span(FirstSlot, LaterSlot, N),
-    lt(FirstSlot, LaterSlot),
+    slot(StartSlot), slot(LastSlot),
+    max(LastSlot),
+    span(StartSlot, LastSlot, N),
     area(Area), beginarea(Area),
-    FirstSlot = (Day, Hour, Quarterhour),
-    slot_area(FirstSlot, Area).
+    StartSlot = (Day, Hour, Quarterhour),
+    slot_area(StartSlot, Area).
 
 %%% area_weekly_overbooked
 
