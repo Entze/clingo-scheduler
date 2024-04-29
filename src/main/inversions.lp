@@ -190,4 +190,24 @@ inversion(area_underbooked, (Area, N)) :-
     area_weeklyminquarterhours(Area, M),
     N < M.
 
+%%% fluidarea_is_should_difference
+
+__inversion_isshould_difference(Area, Diff) :-
+    area(Area),
+    fluidarea_ismilliquotient(Area, Is),
+    fluidarea_shouldmilliquotient(Area, Should),
+    Should < Is,
+    Diff = Is - Should.
+
+__inversion_isshould_difference(Area, Diff) :-
+    area(Area),
+    fluidarea_ismilliquotient(Area, Is),
+    fluidarea_shouldmilliquotient(Area, Should),
+    Is < Should,
+    Diff = Should - Is.
+
+inversion(fluidarea_is_should_difference, Diff, (Area,)) :-
+    __inversion_isshould_difference(Area, Diff).
+
 #show inversion/2.
+#show inversion/3.

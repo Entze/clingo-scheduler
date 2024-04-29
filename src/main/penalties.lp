@@ -20,8 +20,9 @@
 #const level_endarea_too_late = level_highest_soft_constraint - 50.
 #const level_beginarea_too_early = level_endarea_too_late - 50.
 #const level_context_switch = level_beginarea_too_early - 50.
+#const level_fluidarea_is_should_difference = level_context_switch - 50.
 
-#const level_lowest_natural_soft_constraint = level_context_switch.
+#const level_lowest_natural_soft_constraint = level_fluidarea_is_should_difference.
 
 penalty(beginarea_not_present, 1, level_beginarea_not_present).
 penalty(endarea_not_present, 1, level_endarea_not_present).
@@ -44,3 +45,5 @@ penalty(endarea_too_late, 1, level_endarea_too_late).
 penalty(beginarea_too_early, 1, level_beginarea_too_early).
 
 penalty(context_switch,1,level_context_switch).
+
+penalty(fluidarea_is_should_difference,1,0,level_fluidarea_is_should_difference).

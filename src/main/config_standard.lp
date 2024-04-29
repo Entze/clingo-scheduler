@@ -24,17 +24,10 @@ area_dailymaxquarterhours(review_daily_end, 1).
 area_dailyminquarterhours(pause, 2).
 area_dailymaxquarterhours(pause, 2).
 
-area_dailyminquarterhours(pre_estimations, 1).
-area_weeklyminquarterhours(pre_estimations, (14 * 4) + 0).
-area_weeklymaxquarterhours(pre_estimations, (16 * 4) + 0).
-
-area_dailyminquarterhours(concepts, 1).
-area_weeklyminquarterhours(concepts, (9 * 4) + 1).
-area_weeklymaxquarterhours(concepts, (10 * 4) + 3).
-
-area_dailyminquarterhours(improvements, 1).
-area_weeklyminquarterhours(improvements, (4 * 4) + 2).
-area_weeklymaxquarterhours(improvements, (5 * 4) + 2).
+fluidarea_weight(pre_estimations, 5).
+fluidarea_weight(concepts,3).
+fluidarea_weight(improvements,2).
+succ(pre_estimations, concepts). succ(concepts, improvements).
 
 area_dailyminquarterhours(meeting_devc, 0).
 area_dailymaxquarterhours(meeting_devc, 4).
@@ -129,37 +122,11 @@ weeklymaxquarterhours((38 * 4 + 2) + (2 * 5)).
     Slot = (Day, Hour, Quarterhour),
     span((Day, 13,0), Slot,D). [D@level_highest_soft_constraint-4,pause,Slot]
 
-:~ area(Area), area_fluid_gap(Area, Gap). [Gap@level_lowest_natural_soft_constraint-1,Area]
-
 :~ slot_area(Slot, pause),
     slot(Slot),
     Slot = (Day, Hour, Quarterhour),
-    span(Slot, (Day, 12, 2), D). [D@level_lowest_natural_soft_constraint-2,pause,Slot]
+    span(Slot, (Day, 12, 2), D). [D@level_lowest_natural_soft_constraint-1,pause,Slot]
 :~ slot_area(Slot, pause),
     slot(Slot),
     Slot = (Day, Hour, Quarterhour),
-    span((Day, 13, 0), Slot, D). [D@level_lowest_natural_soft_constraint-2,pause,Slot]
-
-
-__area_fluid_totalweeklyslots(P + C + I) :-
-    __area_weeklyslots(pre_estimations, P),
-    __area_weeklyslots(concepts, C),
-    __area_weeklyslots(improvements, I).
-
-__area_fluid_ispercentage(Area, (N * 100) / (T * 100)) :-
-    __area_weeklyslots(Area, N),
-    __area_fluid_totalweeklyslots(T).
-
-__area_fluid_shouldpercentage(pre_estimations, 5000).
-__area_fluid_shouldpercentage(concepts, 3333).
-__area_fluid_shouldpercentage(concepts, 1667).
-
-area_fluid_gap(Area, P - Q) :-
-    __area_fluid_ispercentage(Area, P),
-    __area_fluid_shouldpercentage(Area,Q),
-    P < Q.
-
-area_fluid_gap(Area, Q - P) :-
-    __area_fluid_ispercentage(Area, P),
-    __area_fluid_shouldpercentage(Area,Q),
-    P > Q.
+    span((Day, 13, 0), Slot, D). [D@level_lowest_natural_soft_constraint-1,pause,Slot]
