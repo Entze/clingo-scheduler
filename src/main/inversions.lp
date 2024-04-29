@@ -184,7 +184,7 @@ inversion(area_overbooked, (Area, N)) :-
 
 %%% area_underbooked
 
-inversion(area_overbooked, (Area, N)) :-
+inversion(area_underbooked, (Area, N)) :-
     area(Area),
     area_weekly_lequarterhours(Area, N),
     area_weeklyminquarterhours(Area, M),
