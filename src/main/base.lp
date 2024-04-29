@@ -82,9 +82,9 @@ area_weeklyuntilslot_gequarterhours(Area, Slot, N) :-
     area_weeklyuntilslot_gequarterhours(Area, Pred, N).
 area_weeklyuntilslot_gequarterhours(Area, Slot, N) :-
     area(Area), slot(Slot),
-    Slot = (Day1, Hour1, Quarterhour1),
+    Pred = (Day1, Hour1, Quarterhour1),
     slot(Pred),
-    Pred = (Day2, Hour2, Quarterhour2),
+    Slot = (Day2, Hour2, Quarterhour2),
     succ(Day1, Day2),
     min(Slot), max(Pred),
     area_weeklyuntilslot_gequarterhours(Area, Pred, N).
@@ -132,13 +132,21 @@ area_weeklyuntilslot_lequarterhours(Area, Slot, N) :-
     area_weeklyuntilslot_lequarterhours(Area, Pred, N).
 area_weeklyuntilslot_lequarterhours(Area, Slot, N) :-
     area(Area), slot(Slot),
-    Slot = (Day1, Hour1, Quarterhour1),
+    Pred = (Day1, Hour1, Quarterhour1),
     slot(Pred),
-    Pred = (Day2, Hour2, Quarterhour2),
+    Slot = (Day2, Hour2, Quarterhour2),
     succ(Day1, Day2),
     min(Slot), max(Pred),
     area_weeklyuntilslot_lequarterhours(Area, Pred, N).
-%% TODO: Decrease on day-switch as well
+area_weeklyuntilslot_lequarterhours(Area, Slot, N-1) :-
+    area(Area), slot(Slot),
+    Pred = (Day1, Hour1, Quarterhour1),
+    slot(Pred),
+    Slot = (Day2, Hour2, Quarterhour2),
+    succ(Day1, Day2),
+    min(Slot), max(Pred),
+    not slot_area(Slot, Area),
+    area_weeklyuntilslot_lequarterhours(Area, Pred, N).
 area_weeklyuntilslot_lequarterhours(Area, Slot, N-1) :-
     area(Area), slot(Slot),
     slot(Pred),
