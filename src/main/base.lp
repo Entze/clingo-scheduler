@@ -160,39 +160,10 @@ area_weekly_lequarterhours(Area, N) :-
     max(Day),
     area_weeklyuntilslot_lequarterhours(Area, Slot, N).
 
-
 area_weekly_quarterhours(Area, N) :-
     area(Area),
     area_weekly_gequarterhours(Area, N),
     area_weekly_lequarterhours(Area, N).
 
-__fluidareas_area_weeklyquarterhours(Min, N) :-
-    fluidarea_weight(Min, Weight),
-    min(Min),
-    area_weekly_quarterhours(Min, N).
-__fluidareas_area_weeklyquarterhours(Area, N + M) :-
-    fluidarea_weight(Area, Weight1),
-    fluidarea_weight(Pred, Weight2),
-    succ(Pred, Area),
-    area_weekly_quarterhours(Area, M),
-    __fluidareas_area_weeklyquarterhours(Pred, N).
-fluidareas_weeklyquarterhours(N) :-
-    fluidarea_weight(Max, Weight),
-    max(Max),
-    N > 0,
-    __fluidareas_area_weeklyquarterhours(Max, N).
-
-fluidareas_totalweights(Total) :-
-    Total = #sum { Weight, Area : fluidarea_weight(Area, Weight)}.
-
-fluidarea_ismilliquotient(Area, Is) :-
-    area_weekly_quarterhours(Area, Quarterhours),
-    fluidareas_weeklyquarterhours(Total),
-    Total > 0,
-    Is = (Quarterhours * 1000) / Total.
-
-fluidarea_shouldmilliquotient(Area, Should) :-
-    fluidarea_weight(Area, Weight),
-    fluidareas_totalweights(Total),
-    Total > 0,
-    Should = (Weight * 1000) / Total.
+fluidareastotalweight(Total) :-
+    Total = #sum {Weight, Area : fluidarea_weight(Area, Weight)}.

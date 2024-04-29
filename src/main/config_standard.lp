@@ -17,17 +17,18 @@ endarea(review_daily_end).
 
 area_dailyminquarterhours(review_daily_start, 2).
 area_dailymaxquarterhours(review_daily_start, 2).
+area_weeklyminquarterhours(review_daily_start, 10).
+area_weeklymaxquarterhours(review_daily_start, 10).
 
 area_dailyminquarterhours(review_daily_end, 1).
 area_dailymaxquarterhours(review_daily_end, 1).
+area_weeklyminquarterhours(review_daily_end, 5).
+area_weeklymaxquarterhours(review_daily_end, 5).
 
 area_dailyminquarterhours(pause, 2).
 area_dailymaxquarterhours(pause, 2).
-
-fluidarea_weight(pre_estimations, 5).
-fluidarea_weight(concepts,3).
-fluidarea_weight(improvements,2).
-succ(pre_estimations, concepts). succ(concepts, improvements).
+area_weeklyminquarterhours(pause, 10).
+area_weeklymaxquarterhours(pause, 10).
 
 area_dailyminquarterhours(meeting_devc, 0).
 area_dailymaxquarterhours(meeting_devc, 4).
@@ -44,6 +45,58 @@ area_dailymaxquarterhours(meeting_feature_eval, 2).
 area_weeklyminquarterhours(meeting_feature_eval, 4).
 area_weeklymaxquarterhours(meeting_feature_eval, 4).
 
+__minpreplannedweekly_quarterhours(
+    Review_daily_start +
+    Review_daily_end +
+    Pause +
+    Meeting_devc +
+    Meeting_triage +
+    Meeting_feature_eval
+) :-
+    area_weeklyminquarterhours(review_daily_start, Review_daily_start),
+    area_weeklyminquarterhours(review_daily_end, Review_daily_end),
+    area_weeklyminquarterhours(pause, Pause),
+    area_weeklyminquarterhours(meeting_devc, Meeting_devc),
+    area_weeklyminquarterhours(meeting_triage, Meeting_triage),
+    area_weeklyminquarterhours(meeting_feature_eval, Meeting_feature_eval).
+
+__maxpreplannedweekly_quarterhours(
+    Review_daily_start +
+    Review_daily_end +
+    Pause +
+    Meeting_devc +
+    Meeting_triage +
+    Meeting_feature_eval
+) :-
+    area_weeklymaxquarterhours(review_daily_start, Review_daily_start),
+    area_weeklymaxquarterhours(review_daily_end, Review_daily_end),
+    area_weeklymaxquarterhours(pause, Pause),
+    area_weeklymaxquarterhours(meeting_devc, Meeting_devc),
+    area_weeklymaxquarterhours(meeting_triage, Meeting_triage),
+    area_weeklymaxquarterhours(meeting_feature_eval, Meeting_feature_eval).
+
+fluidarea_weight(pre_estimations, 5).
+fluidarea_weight(concepts, 3).
+fluidarea_weight(improvements, 2).
+
+#const fluidbuffer = 2.
+
+area_weeklyminquarterhours(Area, Quarterhours) :-
+    fluidarea_weight(Area, Weight),
+    weeklyminquarterhours(All),
+    __minpreplannedweekly_quarterhours(Preplanned),
+    Available = All - Preplanned,
+    fluidareastotalweight(TotalWeights),
+    Quarterhours = ((Available * Weight) / TotalWeights) - fluidbuffer.
+
+area_weeklymaxquarterhours(Area, Quarterhours) :-
+    fluidarea_weight(Area, Weight),
+    weeklymaxquarterhours(All),
+    __maxpreplannedweekly_quarterhours(Preplanned),
+    Available = All - Preplanned,
+    fluidareastotalweight(TotalWeights),
+    Quarterhours = (Available * Weight) / TotalWeights + fluidbuffer.
+
 coretimeslot(Slot) :-
     slot(Slot),
     Slot = (Day, Hour, Quarterhour),
@@ -57,7 +110,6 @@ coretimeslot(Slot) :-
 
 weeklyminquarterhours((38 * 4 + 2) + (2 * 5)).
 weeklymaxquarterhours((38 * 4 + 2) + (2 * 5)).
-
 
 :~ not slot_area((wednesday,10,1), meeting_devc).[1@level_highest_natural_hard_constraint+1]
 :~ not slot_area((wednesday,10,2), meeting_devc).[1@level_highest_natural_hard_constraint+1]

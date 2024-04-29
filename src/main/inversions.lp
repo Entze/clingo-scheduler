@@ -84,7 +84,7 @@ inversion(context_switch, (Slot1,Slot2)) :-
     slot_area(Slot1, Area1), slot_area(Slot2, Area2).
 
 
-%%% overbooked_weekly_quarterhours
+%%% weekly_overbooked
 
 __inversion_untilslot_gequarterhours(MinSlot, 0) :-
     slot(MinSlot), min(MinSlot).
@@ -111,13 +111,13 @@ __inversion_weekly_gequarterhours(N) :-
     Slot = (Day, Hour, Quarterhour),
     __inversion_untilslot_gequarterhours(Slot,N).
 
-inversion(overbooked_weekly_quarterhours,(N,)) :-
+inversion(weekly_overbooked,(N,)) :-
     weeklymaxquarterhours(M),
     __inversion_weekly_gequarterhours(N),
     N > M.
 
 
-%%% underbooked_weekly_quarterhours
+%%% weekly_underbooked
 
 __inversion_untilslot_lequarterhours(MinSlot, WeekSpan) :-
     slot(MinSlot), min(MinSlot),
@@ -145,13 +145,15 @@ __inversion_weekly_lequarterhours(N) :-
     Slot = (Day, Hour, Quarterhour),
     __inversion_untilslot_lequarterhours(Slot, N).
 
-inversion(underbooked_weekly_quarterhours,(N,)) :-
+inversion(weekly_underbooked,(N,)) :-
     weeklyminquarterhours(M),
     __inversion_weekly_lequarterhours(N),
     M > N.
 
 
 %%% endarea_too_late
+
+% TODO: rewrite to a inversion/3 variant.
 
 inversion(endarea_too_late, (Day, N)) :-
     day(Day),
@@ -165,6 +167,8 @@ inversion(endarea_too_late, (Day, N)) :-
 
 %%% beginarea_too_early
 
+% TODO: rewrite to a inversion/3 variant.
+
 inversion(beginarea_too_early, (Day, N)) :-
     day(Day),
     slot(FirstSlot), slot(LaterSlot),
@@ -174,40 +178,21 @@ inversion(beginarea_too_early, (Day, N)) :-
     FirstSlot = (Day, Hour, Quarterhour),
     slot_area(FirstSlot, Area).
 
-%%% area_overbooked
+%%% area_weekly_overbooked
 
-inversion(area_overbooked, (Area, N)) :-
+inversion(area_weekly_overbooked, (Area, N)) :-
     area(Area),
     area_weekly_gequarterhours(Area, N),
     area_weeklymaxquarterhours(Area, M),
     N > M.
 
-%%% area_underbooked
+%%% area_weekly_underbooked
 
-inversion(area_underbooked, (Area, N)) :-
+inversion(area_weekly_underbooked, (Area, N)) :-
     area(Area),
     area_weekly_lequarterhours(Area, N),
     area_weeklyminquarterhours(Area, M),
     N < M.
-
-%%% fluidarea_is_should_difference
-
-__inversion_isshould_difference(Area, Diff) :-
-    area(Area),
-    fluidarea_ismilliquotient(Area, Is),
-    fluidarea_shouldmilliquotient(Area, Should),
-    Should < Is,
-    Diff = Is - Should.
-
-__inversion_isshould_difference(Area, Diff) :-
-    area(Area),
-    fluidarea_ismilliquotient(Area, Is),
-    fluidarea_shouldmilliquotient(Area, Should),
-    Is < Should,
-    Diff = Should - Is.
-
-inversion(fluidarea_is_should_difference, Diff, (Area,)) :-
-    __inversion_isshould_difference(Area, Diff).
 
 #show inversion/2.
 #show inversion/3.
