@@ -50,26 +50,26 @@ inversion(endarea_not_last, (Day,)) :-
 %%% area_day_overbooked
 
 
-inversion(area_day_overbooked, (Area,Day,N)) :-
+inversion(area_day_overbooked,N-M,(Area,Day)) :-
     area(Area), day(Day),
-    area_dailymaxquarterhours(Area, M),
-    area_day_gequarterhours(Area,Day,N),
+    area_dailymaxquarterhours(Area,M),
+    area_day_quarterhours(Area,Day,N),
     N > M.
 
 
 %%% area_day_underbooked
 
 
-inversion(area_day_underbooked, (Area,Day,N)) :-
+inversion(area_day_underbooked,M-N,(Area,Day)) :-
     area(Area), day(Day),
     area_dailyminquarterhours(Area,M),
-    area_day_lequarterhours(Area,Day,N),
+    area_day_quarterhours(Area,Day,N),
     N < M.
 
 
 %%% coretimeslot_absent
 
-inversion(coretimeslot_absent, (Slot,)) :-
+inversion(coretimeslot_absent,(Slot,)) :-
     slot(Slot),
     coretimeslot(Slot),
     not slot_area(Slot, _).
@@ -77,89 +77,39 @@ inversion(coretimeslot_absent, (Slot,)) :-
 
 %%% context_switch
 
-inversion(context_switch, (Slot1,Slot2)) :-
+inversion(context_switch,(Slot1,Slot2)) :-
     slot(Slot1), slot(Slot2),
     area(Area1), area(Area2), Area1 != Area2,
     succ(Slot1,Slot2),
-    slot_area(Slot1, Area1), slot_area(Slot2, Area2).
+    slot_area(Slot1,Area1), slot_area(Slot2,Area2).
 
 
-%%% weekly_overbooked
+%%% overbooked
 
-__inversion_untilslot_gequarterhours(MinSlot, 0) :-
-    slot(MinSlot), min(MinSlot).
-__inversion_untilslot_gequarterhours(Slot, N) :-
-    slot(Slot),
-    slot(Pred), succ(Pred,Slot),
-    __inversion_untilslot_gequarterhours(Pred, N).
-__inversion_untilslot_gequarterhours(MinSlot, N) :-
-    slot(MinSlot), min(MinSlot),
-    slot(MaxSlot), max(MaxSlot),
-    MinSlot = (Day, Hour, Quarterhour),
-    MaxSlot = (PredDay, PredHour, PredQuarterhour),
-    succ(PredDay, Day),
-    __inversion_untilslot_gequarterhours(MaxSlot, N).
-__inversion_untilslot_gequarterhours(Slot, N+1) :-
-    slot(Slot),
-    slot(Pred), succ(Pred,Slot),
-    slot_area(Slot, _),
-    __inversion_untilslot_gequarterhours(Pred, N).
-
-__inversion_weekly_gequarterhours(N) :-
-    day(Day), max(Day),
-    slot(Slot), max(Slot),
-    Slot = (Day, Hour, Quarterhour),
-    __inversion_untilslot_gequarterhours(Slot,N).
-
-inversion(weekly_overbooked,(N,)) :-
+inversion(overbooked,N-M,()) :-
     weeklymaxquarterhours(M),
-    __inversion_weekly_gequarterhours(N),
+    quarterhours(N),
     N > M.
 
 
-%%% weekly_underbooked
+%%% underbooked
 
-__inversion_untilslot_lequarterhours(MinSlot, WeekSpan) :-
-    slot(MinSlot), min(MinSlot),
-    __weekspan(WeekSpan).
-__inversion_untilslot_lequarterhours(Slot, N) :-
-    slot(Slot),
-    slot(Pred), succ(Pred,Slot),
-    __inversion_untilslot_lequarterhours(Pred, N).
-__inversion_untilslot_lequarterhours(MinSlot, N) :-
-    slot(MinSlot), min(MinSlot),
-    slot(MaxSlot), max(MaxSlot),
-    MinSlot = (Day, Hour, Quarterhour),
-    MaxSlot = (PredDay, PredHour, PredQuarterhour),
-    succ(PredDay, Day),
-    __inversion_untilslot_lequarterhours(MaxSlot, N).
-__inversion_untilslot_lequarterhours(Slot, N-1) :-
-    slot(Slot),
-    slot(Pred), succ(Pred, Slot),
-    not slot_area(Slot,_),
-    __inversion_untilslot_lequarterhours(Pred, N).
-
-__inversion_weekly_lequarterhours(N) :-
-    day(Day), max(Day),
-    slot(Slot), max(Slot),
-    Slot = (Day, Hour, Quarterhour),
-    __inversion_untilslot_lequarterhours(Slot, N).
-
-inversion(weekly_underbooked,(N,)) :-
+inversion(underbooked,M-N,()) :-
     weeklyminquarterhours(M),
-    __inversion_weekly_lequarterhours(N),
+    quarterhours(N),
     M > N.
 
 
 %%% endarea_too_late
 
-inversion(endarea_too_late, N, (Day,)) :-
+inversion(endarea_too_late,N,(Day,)) :-
     day(Day),
     slot(EndSlot), slot(FirstSlot),
     min(FirstSlot),
     span(FirstSlot, EndSlot, N),
+    N > 0,
     area(Area), endarea(Area),
-    EndSlot = (Day, Hour, Quarterhour),
+    EndSlot = (Day,Hour,Quarterhour),
     slot_area(EndSlot, Area).
 
 
@@ -170,24 +120,25 @@ inversion(beginarea_too_early, N, (Day,)) :-
     slot(StartSlot), slot(LastSlot),
     max(LastSlot),
     span(StartSlot, LastSlot, N),
+    N > 0,
     area(Area), beginarea(Area),
-    StartSlot = (Day, Hour, Quarterhour),
+    StartSlot = (Day,Hour,Quarterhour),
     slot_area(StartSlot, Area).
 
-%%% area_weekly_overbooked
+%%% area_overbooked
 
-inversion(area_weekly_overbooked, (Area, N)) :-
+inversion(area_overbooked,N-M,(Area,)) :-
     area(Area),
-    area_weekly_gequarterhours(Area, N),
-    area_weeklymaxquarterhours(Area, M),
+    area_quarterhours(Area,N),
+    area_weeklymaxquarterhours(Area,M),
     N > M.
 
-%%% area_weekly_underbooked
+%%% area_underbooked
 
-inversion(area_weekly_underbooked, (Area, N)) :-
+inversion(area_underbooked,M-N,(Area,)) :-
     area(Area),
-    area_weekly_lequarterhours(Area, N),
-    area_weeklyminquarterhours(Area, M),
+    area_quarterhours(Area,N),
+    area_weeklyminquarterhours(Area,M),
     N < M.
 
 #show inversion/2.
