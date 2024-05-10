@@ -1,8 +1,5 @@
 
-% >= 0 --> mandatory
-%  < 0 --> best effort
-
-#const level_lowest_hard_constraint = 1000.
+#const level_lowest_hard_constraint = 1.
 #const level_highest_soft_constraint = level_lowest_hard_constraint - 1.
 
 #const level_beginarea_not_present = level_endarea_not_present.
@@ -21,28 +18,30 @@
 
 #const level_endarea_too_late = level_highest_soft_constraint - 50.
 #const level_beginarea_too_early = level_endarea_too_late - 50.
-#const level_context_switch = level_beginarea_too_early - 50.
+#const level_area_day_context_fragmentation = level_beginarea_too_early - 50.
+#const level_area_day_context_saturation = level_area_day_context_fragmentation.
 
-#const level_lowest_natural_soft_constraint = level_context_switch.
+#const level_lowest_natural_soft_constraint = level_area_day_context_saturation.
 
-penalty(beginarea_not_present, 1, level_beginarea_not_present).
-penalty(endarea_not_present, 1, level_endarea_not_present).
+#const scale_beginarea_not_present = 1.
+#const scale_endarea_not_present = 1.
 
-penalty(beginarea_not_first, 1, level_beginarea_not_first).
-penalty(endarea_not_last, 1, level_endarea_not_last).
+#const scale_beginarea_not_first = 1.
+#const scale_endarea_not_last = 1.
 
-penalty(overbooked, 1,0, level_overbooked).
-penalty(underbooked, 1,0, level_underbooked).
+#const scale_coretimeslot_absent = 1.
 
-penalty(area_overbooked,1,0, level_area_overbooked).
-penalty(area_underbooked,1,0, level_area_underbooked).
+#const scale_overbooked = 1.
+#const scale_underbooked = 1.
 
-penalty(area_day_overbooked,1,0, level_area_day_overbooked).
-penalty(area_day_underbooked,1,0, level_area_day_underbooked).
+#const scale_area_day_overbooked = 1.
+#const scale_area_day_underbooked = 1.
 
-penalty(coretimeslot_absent, 1, level_coretimeslot_absent).
+#const scale_area_overbooked = 1.
+#const scale_area_underbooked = 1.
 
-penalty(endarea_too_late, 1, 0, level_endarea_too_late).
-penalty(beginarea_too_early, 1, 0, level_beginarea_too_early).
+#const scale_endarea_too_late = 1.
+#const scale_beginarea_too_early = 1.
 
-penalty(context_switch, 1, level_context_switch).
+#const scale_area_day_context_saturation = 1.
+#const scale_area_day_context_fragementation = 1.

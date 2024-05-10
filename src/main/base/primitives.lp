@@ -3,7 +3,7 @@ day(monday). day(tuesday). day(wednesday). day(thursday). day(friday).
 succ(monday, tuesday). succ(tuesday, wednesday). succ(wednesday, thursday). succ(thursday, friday).
 
 
-hour(6..19).
+hour(7..18).
 succ(H, H+1) :-
     hour(H), hour(H+1).
 
