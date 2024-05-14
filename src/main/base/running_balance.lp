@@ -104,7 +104,7 @@ area_untilday_lequarterhours(Area,Day,N+M) :-
 
 area_lequarterhours(Area,N) :-
     area(Area),
-    day(Day),
+    day(Day), max(Day),
     area_untilday_lequarterhours(Area,Day,N).
 
 
