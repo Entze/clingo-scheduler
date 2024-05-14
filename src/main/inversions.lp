@@ -65,7 +65,7 @@ __endarea_present(Day) :-
 %%% overbooked
 
 #minimize {
-    (N-M)*scale_overbooked@level_overbooked:
+    scale_overbooked@level_overbooked,N-M:
         weeklymaxquarterhours(M),
         gequarterhours(N),
         N > M
@@ -74,7 +74,7 @@ __endarea_present(Day) :-
 %%% underbooked
 
 #minimize {
-    (M-N)*scale_underbooked@level_underbooked:
+    scale_underbooked@level_underbooked,M-N:
         weeklyminquarterhours(M),
         lequarterhours(N),
         N < M
@@ -84,7 +84,7 @@ __endarea_present(Day) :-
 
 
 #minimize {
-    (N-M)*scale_area_day_overbooked@level_area_day_overbooked,Area,Day:
+    scale_area_day_overbooked@level_area_day_overbooked,Area,Day,N-M:
         area(Area), day(Day),
         area_dailymaxquarterhours(Area,M),
         area_day_gequarterhours(Area,Day,N),
@@ -94,7 +94,7 @@ __endarea_present(Day) :-
 %%% area_day_underbooked
 
 #minimize {
-    (M-N)*scale_area_day_underbooked@level_area_day_underbooked,Area,Day:
+    scale_area_day_underbooked@level_area_day_underbooked,Area,Day,M-N:
         area(Area), day(Day),
         area_dailyminquarterhours(Area,M),
         area_day_lequarterhours(Area,Day,N),
@@ -104,7 +104,7 @@ __endarea_present(Day) :-
 %%% area_overbooked
 
 #minimize {
-    (N-M)*scale_area_overbooked@level_area_overbooked,Area:
+    scale_area_overbooked@level_area_overbooked,Area,N-M:
         area(Area),
         area_gequarterhours(Area,N),
         area_weeklymaxquarterhours(Area,M),
@@ -114,7 +114,7 @@ __endarea_present(Day) :-
 %%% area_underbooked
 
 #minimize {
-    (M-N)*scale_area_underbooked@level_area_underbooked,Area :
+    scale_area_underbooked@level_area_underbooked,Area,M-N:
         area(Area),
         area_lequarterhours(Area,N),
         area_weeklyminquarterhours(Area,M),
@@ -123,34 +123,53 @@ __endarea_present(Day) :-
 
 %%% endarea_too_late
 
+__firstslot(Slot) :-
+    slot(Slot),
+    coretimeslot(Slot),
+    slot(Pred), succ(Pred,Slot),
+    not coretimeslot(Pred).
+__firstslot(Slot) :-
+    slot(Slot),
+    not coretimeslot(_),
+    max(Slot).
+__lastslot(Slot) :-
+    slot(Slot),
+    coretimeslot(Slot),
+    slot(Succ), succ(Slot,Succ),
+    not coretimeslot(Succ).
+__lastslot(Slot) :-
+    slot(Slot),
+    not coretimeslot(_),
+    min(Slot).
+
+
 #minimize {
-    N*scale_endarea_too_late@level_endarea_too_late,Day:
+    scale_endarea_too_late@level_endarea_too_late,EarlierSlot:
         day(Day),
         area(EndArea), endarea(EndArea),
         slot(EndSlot), EndSlot = (Day,Hour2,Quarterhour2),
-        slot(FirstSlot), min(FirstSlot), FirstSlot = (Day,Hour1,Quarterhour1),
         slot_area(EndSlot,EndArea),
-        span(FirstSlot,EndSlot,N),
-        N > 0
+        slot(LastSlot), __lastslot(LastSlot), LastSlot = (Day,Hour1,Quarterhour1),
+        lt(LastSlot,EarlierSlot),
+        lt(EarlierSlot,EndSlot)
 }.
 
 %%% beginarea_too_early
 
 #minimize {
-    N*scale_beginarea_too_early@level_beginarea_too_early,Day:
+    scale_beginarea_too_early@level_beginarea_too_early,LaterSlot:
         day(Day),
         area(BeginArea), beginarea(BeginArea),
         slot(StartSlot), StartSlot = (Day,Hour1,Quarterhour1),
-        slot(LastSlot), max(LastSlot), LastSlot = (Day,Hour2,Quarterhour2),
         slot_area(StartSlot, BeginArea),
-        span(StartSlot, LastSlot, N),
-        N > 0
+        slot(FirstSlot), __firstslot(FirstSlot), FirstSlot = (Day,Hour2,Quarterhour2),
+        lt(StartSlot,LaterSlot), lt(LaterSlot,FirstSlot)
 }.
 
 %%% area_day_context_saturation
 
 #minimize {
-    (N-M)*scale_area_day_context_saturation@level_area_day_context_saturation,Area,Day:
+    scale_area_day_context_saturation@level_area_day_context_saturation,Area,Day,N-M:
         area(Area), day(Day),
         area_day_gecontextwindow(Area,Day,N),
         area_blockmaxquarterhours(Area,M),
