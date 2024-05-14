@@ -3,9 +3,8 @@
 % Describes how many times(2) has Area(0) been allocated _at least_ up to this
 % Slot(1) (inclusive).
 
-area_untilslot_gequarterhours(Area,MinSlot,0) :-
-    area(Area), slot(MinSlot),
-    min(MinSlot).
+area_untilslot_gequarterhours(Area,Slot,0) :-
+    area(Area), slot(Slot).
 area_untilslot_gequarterhours(Area,Slot,N) :-
     area(Area), slot(Slot),
     slot(Pred),
@@ -32,16 +31,19 @@ area_day_gequarterhours(Area, Day, N) :-
 % Describes how many times(2) has Area(0) been allocated _at least_ up to this
 % Day(1) (inclusive).
 
-area_untilday_gequartershours(Area,MinDay,N) :-
-    area(Area), day(MinDay),
-    min(MinDay),
-    area_day_gequarterhours(Area,MinDay,N).
-area_untilday_gequartershours(Area,Day,N+M) :-
+area_untilday_gequarterhours(Area,Day,N) :-
+    area(Area), day(Day),
+    area_day_gequarterhours(Area,Day,N).
+area_untilday_gequarterhours(Area,Day,N) :-
+    area(Area), day(Day),
+    day(Pred), succ(Pred,Day),
+    area_untilday_gequarterhours(Area,Pred,N).
+area_untilday_gequarterhours(Area,Day,N+M) :-
     area(Area), day(Day),
     day(Pred),
     succ(Pred, Day),
     area_day_gequarterhours(Area,Day,M),
-    area_untilday_gequartershours(Area,Pred,N).
+    area_untilday_gequarterhours(Area,Pred,N).
 
 
 %% area_gequarterhours/2
@@ -51,7 +53,7 @@ area_untilday_gequartershours(Area,Day,N+M) :-
 area_gequarterhours(Area, N) :-
     area(Area),
     day(Day),
-    area_untilday_gequartershours(Area,Day,N).
+    area_untilday_gequarterhours(Area,Day,N).
 
 
 %% area_untilslot_lequarterhours/3
