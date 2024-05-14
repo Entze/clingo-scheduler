@@ -1,4 +1,21 @@
 
+%%% fixed_slots
+
+#minimize {
+    scale_fixed_slots@level_fixed_slots,Slot,Area:
+        slot(Slot), area(Area),
+        fixedslot_area(Slot,Area),
+        not slot_area(Slot,Area)
+}.
+
+#minimize {
+    scale_fixed_slots@level_fixed_slots,Slot,Area:
+        slot(Slot), area(Area),
+        fixedslot_area(_,Area),
+        not fixedslot_area(Slot,Area),
+        slot_area(Slot,Area)
+}.
+
 %%% beginarea_not_present
 
 __beginarea_present(Day) :-
