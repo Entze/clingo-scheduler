@@ -8,11 +8,11 @@
 #const level_endarea_not_last = level_coretimeslot_absent + 50.
 #const level_coretimeslot_absent = level_overbooked + 50.
 #const level_overbooked = level_underbooked.
-#const level_underbooked = level_area_day_overbooked + 50.
-#const level_area_day_overbooked = level_area_day_underbooked.
-#const level_area_day_underbooked = level_area_overbooked + 50.
+#const level_underbooked = level_area_overbooked + 50.
 #const level_area_overbooked = level_area_underbooked.
-#const level_area_underbooked = level_lowest_hard_constraint + 50.
+#const level_area_underbooked = level_area_day_overbooked + 50.
+#const level_area_day_overbooked = level_area_day_underbooked.
+#const level_area_day_underbooked = level_lowest_hard_constraint + 50.
 
 #const level_highest_natural_hard_constraint = level_beginarea_not_present.
 
