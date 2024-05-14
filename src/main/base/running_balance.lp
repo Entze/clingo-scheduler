@@ -110,23 +110,6 @@ area_lequarterhours(Area,N) :-
     area_untilday_lequarterhours(Area,Day,N).
 
 
-%% area_day_quarterhours/3
-% Describes how many times(2) has Area(0) been allocated on this Day(1).
-
-%area_day_quarterhours(Area,Day,N) :-
-%    area(Area), day(Day),
-%    area_day_lequarterhours(Area,Day,N),
-%    area_day_gequarterhours(Area,Day,N).
-
-
-%% area_quarterhours/2
-% Describes how many times(1) has Area(0) been allocated in this week.
-
-%area_quarterhours(Area,N) :-
-%    area(Area),
-%    area_gequarterhours(Area, N),
-%    area_lequarterhours(Area, N).
-
 %% untilslot_gequarterhours/2
 % Describes how many times(1) has any area been allocated _at least_ up to
 % this Slot(0).
