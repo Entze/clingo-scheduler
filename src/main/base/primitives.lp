@@ -53,6 +53,12 @@ span(B, B, 0) :- succ(_,B).
 span(A, B, 1) :- succ(A,B).
 span(A, C, N+1) :- succ(A,B), span(B,C,N).
 
+day_span(Day,N) :-
+    day(Day),
+    slot(Slot1), Slot1 = (Day,Hour1,Quarterhour1), min(Slot1),
+    slot(Slot2), Slot2 = (Day,Hour2,Quarterhour2), max(Slot2),
+    span(Slot1, Slot2, N).
+
 
 fluidareastotalweight(Total) :-
     Total = #sum {Weight, Area : fluidarea_weight(Area, Weight)}.
