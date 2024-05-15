@@ -123,6 +123,7 @@ __endarea_present(Day) :-
 #minimize {
     scale_area_overbooked@level_area_overbooked,Area,N-M:
         area(Area),
+        not fluidarea_weight(Area,_),
         area_gequarterhours(Area,N),
         area_weeklymaxquarterhours(Area,M),
         N > M
@@ -133,6 +134,7 @@ __endarea_present(Day) :-
 #minimize {
     scale_area_underbooked@level_area_underbooked,Area,M-N:
         area(Area),
+        not fluidarea_weight(Area,_),
         area_lequarterhours(Area,N),
         area_weeklyminquarterhours(Area,M),
         N < M
@@ -183,6 +185,36 @@ __lastslot(Slot) :-
         lt(StartSlot,LaterSlot), lt(LaterSlot,FirstSlot)
 }.
 
+%%% linear_endarea_too_late
+
+%TODO Implement
+
+%%% linear_beginarea_too_early
+
+%TODO Implement
+
+%%% fluidarea_overbooked
+
+#minimize {
+    scale_fluidarea_overbooked@level_fluidarea_overbooked,Area,N-M:
+        area(Area),
+        fluidarea_weight(Area,_),
+        area_gequarterhours(Area,N),
+        area_weeklymaxquarterhours(Area,M),
+        N > M
+    }.
+
+%%% fluidarea_underbooked
+
+#minimize {
+    scale_fluidarea_underbooked@level_fluidarea_underbooked,Area,M-N:
+        area(Area),
+        fluidarea_weight(Area,_),
+        area_lequarterhours(Area,N),
+        area_weeklyminquarterhours(Area,M),
+        N < M
+    }.
+
 %%% area_day_context_saturation
 
 #minimize {
@@ -193,6 +225,9 @@ __lastslot(Slot) :-
         N > M
 }.
 
+%%% linear_area_day_context_saturation
+
+%TODO Implement
 
 %%% area_day_context_fragmentation
 
@@ -218,3 +253,7 @@ __area_fragmentationslot(Area,Slot) :-
         area(Area), slot(Slot),
         __area_fragmentationslot(Area,Slot)
 }.
+
+%%% linear_area_day_context_fragmentation
+
+%TODO linear_area_day_context_saturation
