@@ -140,6 +140,50 @@ __endarea_present(Day) :-
         N < M
     }.
 
+%%% beforearea_not_before
+
+__isbefore(Area1, Area2) :-
+    area(Area1), area(Area2),
+    beforearea_area(Area1,Area2),
+    slot(Slot1), slot(Slot2),
+    slot_area(Slot1,Area1),
+    slot_area(Slot2,Area2),
+    lt(Slot1,Slot2).
+
+__isbefore(Area1, Area2) :-
+    area(Area1), area(Area2),
+    beforearea_area(Area1,Area2),
+    slot(Slot1), Slot1 = (Day1,Hour1,Quarterhour1),
+    slot(Slot2), Slot2 = (Day2,Hour2,Quarterhour2),
+    lt(Day1,Day2),
+    slot_area(Slot1,Area1),
+    slot_area(Slot2,Area2).
+
+#minimize {
+    scale_beforearea_not_before@level_beforearea_not_before,Area1,Area2:
+        area(Area1), area(Area2),
+        beforearea_area(Area1,Area2),
+        not __isbefore(Area1,Area2)
+}.
+
+%%% areas_not_on_same_day
+
+__onsameday(Area1,Area2) :-
+    area(Area1), area(Area2),
+    isonsameday_area_area(Area1,Area2),
+    slot(Slot1), Slot1 = (Day,Hour1,Quarterhour1),
+    slot(Slot2), Slot2 = (Day,Hour2,Quarterhour2),
+    slot_area(Slot1,Area1),
+    slot_area(Slot2,Area2).
+
+#minimize {
+    scale_areas_not_on_same_day@level_areas_not_on_same_day,Area1,Area2:
+        area(Area1), area(Area2),
+        isonsameday_area_area(Area1,Area2),
+        not __onsameday(Area1,Area2)
+}.
+
+
 %%% endarea_too_late
 
 __firstslot(Slot) :-
