@@ -17,10 +17,12 @@
 
 #const level_endarea_too_late = -10.
 #const level_beginarea_too_early = -11.
-#const level_fluidarea_overbooked = -12.
-#const level_fluidarea_underbooked = -12.
-#const level_area_day_context_fragmentation = -13.
-#const level_area_day_context_saturation = -13.
+#const level_linear_endarea_too_late = -12.
+#const level_linear_beginarea_too_early = -13.
+#const level_fluidarea_overbooked = -14.
+#const level_fluidarea_underbooked = -14.
+#const level_area_day_context_fragmentation = -15.
+#const level_area_day_context_saturation = -15.
 
 #const level_highest_hard_constraint = level_fixed_slots.
 #const level_lowest_hard_constraint = level_area_day_underbooked.
@@ -52,6 +54,9 @@
 
 #const scale_endarea_too_late = 1.
 #const scale_beginarea_too_early = 1.
+
+#const scale_linear_endarea_too_late = 1.
+#const scale_linear_beginarea_too_early = 1.
 
 #const scale_fluidarea_overbooked = 1.
 #const scale_fluidarea_underbooked = 1.

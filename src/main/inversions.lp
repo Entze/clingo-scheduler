@@ -231,11 +231,29 @@ __lastslot(Slot) :-
 
 %%% linear_endarea_too_late
 
-%TODO Implement
+#minimize {
+    D*scale_linear_endarea_too_late@level_linear_endarea_too_late,EarlierSlot:
+        day(Day),
+        area(EndArea), endarea(EndArea),
+        slot(EndSlot), EndSlot = (Day,Hour2,Quarterhour2),
+        slot_area(EndSlot,EndArea),
+        slot(LastSlot), __lastslot(LastSlot), LastSlot = (Day,Hour1,Quarterhour1),
+        lt(LastSlot,EarlierSlot), lt(EarlierSlot,EndSlot),
+        span(EarlierSlot,EndSlot,D)
+}.
 
 %%% linear_beginarea_too_early
 
-%TODO Implement
+#minimize {
+    D*scale_linear_beginarea_too_early@level_linear_beginarea_too_early,LaterSlot:
+        day(Day),
+        area(BeginArea), beginarea(BeginArea),
+        slot(StartSlot), StartSlot = (Day,Hour1,Quarterhour1),
+        slot_area(StartSlot, BeginArea),
+        slot(FirstSlot), __firstslot(FirstSlot), FirstSlot = (Day,Hour2,Quarterhour2),
+        lt(StartSlot,LaterSlot), lt(LaterSlot,FirstSlot),
+        span(LaterSlot,FirstSlot,D)
+}.
 
 %%% fluidarea_overbooked
 
@@ -269,10 +287,6 @@ __lastslot(Slot) :-
         N > M
 }.
 
-%%% linear_area_day_context_saturation
-
-%TODO Implement
-
 %%% area_day_context_fragmentation
 
 __area_untilslot_fragmentationindicator(Area,Slot,Min-1) :-
@@ -297,7 +311,3 @@ __area_fragmentationslot(Area,Slot) :-
         area(Area), slot(Slot),
         __area_fragmentationslot(Area,Slot)
 }.
-
-%%% linear_area_day_context_fragmentation
-
-%TODO linear_area_day_context_saturation
