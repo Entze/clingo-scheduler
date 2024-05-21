@@ -311,3 +311,25 @@ __area_fragmentationslot(Area,Slot) :-
         area(Area), slot(Slot),
         __area_fragmentationslot(Area,Slot)
 }.
+
+%%% preparationarea_too_early
+
+#minimize {
+    D*scale_preparationarea_too_early@level_preparationarea_too_early,PreparationArea,Area,PreparationSlot,Slot:
+        area(PreparationArea), area(Area), slot(PreparationSlot), slot(Slot),
+        preparationarea_area(PreparationArea,Area),
+        slot_area(PreparationSlot,PreparationArea),
+        slot_area(Slot,Area),
+        span(PreparationSlot,Slot,D)
+}.
+
+%%% reviewarea_too_late
+
+#minimize {
+    D*scale_reviewarea_too_late@level_reviewarea_too_late,ReviewArea,Area,ReviewSlot,Slot:
+        area(ReviewArea), area(Area), slot(ReviewSlot), slot(Slot),
+        reviewarea_area(ReviewArea,Area),
+        slot_area(ReviewSlot,ReviewArea),
+        slot_area(Slot,Area),
+        span(Slot,ReviewSlot,D)
+}.

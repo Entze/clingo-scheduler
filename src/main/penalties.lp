@@ -23,11 +23,13 @@
 #const level_fluidarea_underbooked = -14.
 #const level_area_day_context_fragmentation = -15.
 #const level_area_day_context_saturation = -15.
+#const level_preparationarea_too_early = -16.
+#const level_reviewarea_too_late = -16.
 
 #const level_highest_hard_constraint = level_fixed_slots.
 #const level_lowest_hard_constraint = level_area_day_underbooked.
 #const level_highest_soft_constraint = level_endarea_too_late.
-#const level_lowest_soft_constraint = level_area_day_context_saturation.
+#const level_lowest_soft_constraint = level_reviewarea_too_late.
 
 #const scale_fixed_slots = 1.
 
@@ -63,3 +65,6 @@
 
 #const scale_area_day_context_saturation = 1.
 #const scale_area_day_context_fragementation = 1.
+
+#const scale_preparationarea_too_early = 1.
+#const scale_reviewarea_too_late = 1.
