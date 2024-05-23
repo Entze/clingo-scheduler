@@ -142,7 +142,7 @@ __endarea_present(Day) :-
 
 %%% beforearea_not_before
 
-__isbefore(Area1, Area2) :-
+__isbefore(Area1,Area2) :-
     area(Area1), area(Area2),
     beforearea_area(Area1,Area2),
     slot(Slot1), slot(Slot2),
@@ -150,7 +150,7 @@ __isbefore(Area1, Area2) :-
     slot_area(Slot2,Area2),
     lt(Slot1,Slot2).
 
-__isbefore(Area1, Area2) :-
+__isbefore(Area1,Area2) :-
     area(Area1), area(Area2),
     beforearea_area(Area1,Area2),
     slot(Slot1), Slot1 = (Day1,Hour1,Quarterhour1),
