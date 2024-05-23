@@ -1,0 +1,61 @@
+# Configuration
+
+The configuration is a set of statements and rules written as logic program.
+There are a few predefined predicates, with a given semantic.
+
+- `area/1.`
+- `beginarea/1.`
+- `endarea/1.`
+- `coretimeslot/1.`
+- `area_blockminquarterhours/2.`
+- `area_blockmaxquarterhours/2.`
+- `area_dailyminquarterhours/2.`
+- `area_dailymaxquarterhours/2.`
+- `area_weeklyminquarterhours/2.`
+- `area_weeklymaxquarterhours/2.`
+- `weeklyminquarterhours/1.`
+- `weeklymaxquarterhours/1.`
+- `fixedslot_area/2.`
+- `fluidarea_weight/2.`
+- `preparationarea_area/2.`
+- `reviewarea_area/2.`
+
+A minimal configuration consists of at least one `area/1.` statement. However,
+such a configuration would not return a very interesting schedule.
+
+## `area/1.`
+
+The predicate `area/1.` indicates that its first argument is an area that can,
+or cannot be scheduled.
+
+## `beginarea/1.`
+
+The predicate `beginarea/1.` indicates that its first argument is the begin
+area. The begin area has to be scheduled first on every day.
+
+## `endarea/1.`
+
+The predicate `endarea/1.` indicates that its first argument is the end area.
+The end area has to be scheduled last on every day.
+
+## `coretimeslot/1.`
+
+The predicate `coretimeslot/1.` indicates that its first argument is a core time
+slot. A core time slot is a slot that has to have an area scheduled. Therfore,
+`slot_area/2.` will hold for some area on this slot.
+
+## `area_blockminquarterhours/2.`
+
+The predicate `area_blockminquarterhours/2.` indicates that its first argument
+is an area with a minimum block size in the second argument. Therefore, if
+the area is scheduled for a slot, then at least the minimum number of slots that
+follow is the second argument minus one.
+
+## `area_blockmaxquarterhours/2.`
+
+The predicate `area_blockmaxquarterhours/3.` indicates that its first argument
+is an area that with a maximum block size in the second argument. Therefore, if
+the area is scheduled for a slot, then at most the maximum number of slots that
+follow is the second argument minus one.
+
+## `area_dailyminquarterhours/2.`
