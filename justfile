@@ -1,3 +1,2 @@
-
 docs:
-    make generate_all_documentation
+    fdfind --search-path=docs/ --extension dj --exec make docs_md/{/.}.md
