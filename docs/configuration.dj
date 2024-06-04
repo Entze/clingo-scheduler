@@ -17,8 +17,16 @@ There are a few predefined predicates, with a given semantic.
 - `weeklymaxquarterhours/1.`
 - `fixedslot_area/2.`
 - `fluidarea_weight/2.`
+- `isonsameday_area_area/2.`
+- `beforeearea_area/2.`
 - `preparationarea_area/2.`
 - `reviewarea_area/2.`
+
+Their semantic is defined below.
+
+Some use a _slot_ as argument. A slot is a 3-tuple, consisting of the day, the
+hour and the ordinal number of the quarterhour. Therefore, the timeslot Tuesday,
+13:30 -- 13:45 is denoted with `(tuesday,13,2)`.
 
 A minimal configuration consists of at least one `area/1.` statement. However,
 such a configuration would not return a very interesting schedule.
@@ -28,21 +36,80 @@ such a configuration would not return a very interesting schedule.
 The predicate `area/1.` indicates that its first argument is an area that can,
 or cannot be scheduled.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
+```clingo
+% My areas of concerns
+area(morning_routine).
+
+area(writing_reports).
+area(programming).
+area(improve_workflow).
+
+area(reading_manuals).
+area(producing_widgets).
+
+area(pre_stand_up_meeting).
+area(stand_up_meeting).
+area(post_stand_up_meeting).
+
+area(evening_review).
+```
+
+::::
+
 ## `beginarea/1.`
 
 The predicate `beginarea/1.` indicates that its first argument is the begin
 area. The begin area has to be scheduled first on every day.
+
+
+```clingo
+% Start with the morning routine
+beginarea(morning_routine).
+```
 
 ## `endarea/1.`
 
 The predicate `endarea/1.` indicates that its first argument is the end area.
 The end area has to be scheduled last on every day.
 
+```clingo
+% Do the evening review last
+endarea(evening_review).
+```
+
 ## `coretimeslot/1.`
 
 The predicate `coretimeslot/1.` indicates that its first argument is a core time
 slot. A core time slot is a slot that has to have an area scheduled. Therfore,
 `slot_area/2.` will hold for some area on this slot.
+
+This can be used to set a fixed worktime schedule, or which hours in a
+flexi-time agreement have to be attended.
+
+```clingo
+% Monday to Thursday I have to work between 11:00 and 14:00
+coretimeslot(Slot) :-
+	slot(Slot), Slot = (Day,Hour,Quarterhour),
+	Day != friday,
+	11 <= Hour, Hour < 14.
+% Fridays from 11:00 to 13:30
+coretimeslot(Slot) :-
+	slot(Slot), Slot = (Day,Hour,Quarterhour),
+	Day = friday,
+	11 <= Hour, Hour < 13.
+coretimeslot(Slot) :-
+	slot(Slot), Slot = (Day,Hour,Quarterhour),
+	Day = friday,
+	Hour = 13,
+	0 <= Quarterhour, Quarterhour <= 1.
+```
 
 ## `area_blockminquarterhours/2.`
 
@@ -51,11 +118,152 @@ is an area with a minimum block size in the second argument. Therefore, if
 the area is scheduled for a slot, then at least the minimum number of slots that
 follow is the second argument minus one.
 
+```clingo
+% A block of programming should be at least an hour
+area_blockminquarterhours(programming,1*4).
+```
+
 ## `area_blockmaxquarterhours/2.`
 
-The predicate `area_blockmaxquarterhours/3.` indicates that its first argument
+The predicate `area_blockmaxquarterhours/2.` indicates that its first argument
 is an area that with a maximum block size in the second argument. Therefore, if
 the area is scheduled for a slot, then at most the maximum number of slots that
 follow is the second argument minus one.
 
+```clingo
+% A block of writing reports should at most be two hours
+area_blockmaxquarterhours(writing_reports,2*4).
+```
+
 ## `area_dailyminquarterhours/2.`
+
+The predicate `area_minquarterhours/2.` indicates that its first argument is an
+area with a minimum number of quarterhours in the second argument applicable for
+each day. Therefore, the area is scheduled at least that many quarterhours for
+each day.
+
+```clingo
+% On each day, I should program three and a half hours
+area_dailyminquarterhours(programming,3*4 + 2).
+```
+
+## `area_dailymaxquarterhours/2.`
+
+The predicate `area_maxquarterhours/2.` indicates that its first argument is an
+area with a maximum number of quarterhours in the second argument, applicable
+for each day. Therefore, the area is scheduled at most that many quarterhours
+for each day.
+
+```clingo
+% On each day, I should improve my workflow no longer than one hour
+area_dailymaxquarterhours(improve_workflow,1*4).
+```
+
+## `area_weeklyminquarterhours/2.`
+
+The predicate `area_weeklyminquarterhours/2.` indicates that its first argument
+is an area with a minimum number of quarterhours in the second argument,
+applicable for the whole week. Therefore, the area is scheduled at least that
+many quarterhours during the whole week.
+
+```clingo
+% During the week, I usually need to write six hours of reports
+area_weeklyminquarterhours(writing_reports,6*4).
+```
+
+## `area_weeklymaxquarterhours/2.`
+
+The predicate `area_weeklymaxquarterhours/2.` indicates that its first argument
+is an area with a maximum number of quarterhours in the second argument.
+Therefore, the area is scheduled at most that many quarterhours during the whole
+week.
+
+```clingo
+% During the week, I usually want to improve my workflow for at most four hours
+area_weeklymaxquarterhours(improve_workflow,4*4).
+```
+
+## `weeklyminquarterhours/1.`
+
+The predicate `weeklyminquarterhours/1.` indicates that its argument is the
+minimum number of quarterhours that have to be scheduled for the week.
+
+```clingo
+% I have a 38.5h work week
+weeklyminquarterhours(38*4 + 2).
+```
+
+## `weeklymaxquarterhours/1.`
+
+The predicate `weeklymaxquarterhours/1.` indicates that its argument is the
+maximum number of quarterhours that have to scheduled for the week.
+
+```clingo
+% I don't want to do more than two hours of overtime
+weeklymaxquarterhours(Min + 2*4) :-
+	weeklyminquarterhours(Min).
+```
+
+## `fixedslot_area/2.`
+
+The predicate `fixedslot_area/2.` indicates that its second argument is an area
+that can only be scheduled for time slots that appear as first argument.
+
+```clingo
+% On Mondays at 10:00 we have a stand-up meeting for thirty minutes.
+
+fixedslot_area((monday, 10, 0), standup_meeting).
+fixedslot_area((monday, 10, 1), standup_meeting).
+```
+
+## `fluidarea_weight/2.`
+
+The predicate `fluidarea_weight/2.` indicates that its first argument is an area
+that should be allocated as much slots as are available according to the weight
+given as the second argument. The accuracy of said weighting can be configured
+by setting the constant `fluidbuffer` which is `2` by default.
+
+```clingo
+% About 2/3 of my time should be allocated to producing widgets
+fluidarea_weight(producing_widgets,2).
+% About 1/3 of my time should be allocated to reading manuals.
+fluidarea_weight(reading_manuals,1).
+```
+
+## `isonsameday_area_area/2.`
+
+The predicate `isonsameday_area_area/2.` indicates that its first argument
+and its second argument are areas that should be allocated on the same
+day. This is usually declared implicitly via `preparationarea_area/2.` or
+`area_reviewarea/2`.
+
+## `beforearea_area/2.`
+
+The predicate `beforearea_area/2.` indicates that its first argument is an area
+that needs to be scheduled before its second argument. Beware however, that
+every allocation of the first argument is a valid _before_ for every subsequent
+allocation of the second argument. This is usually declared implicitly via
+`preparationarea_area/2.` or `area_reviewarea/2`.
+
+## `preparationarea_area/2.`
+
+The predicate `preparationarea_area/2.` indicates that its first argument
+is an area that is a preparation area of its second argument. A preparation
+area is to be scheduled on the same day and in an earlier timeslot than its
+counterpart. Incidentally, it is implemented with `isonsameday_area_area/2.` and
+`beforearea_area/2.`. Thus it is also best to split day specific instances of an
+area into their day variants.
+
+```clingo
+% Before the stand-up meeting I want to prepare
+preparationarea_area(pre_standup_meeting,standupmeeting).
+```
+
+## `reviewarea_area/2.`
+
+The predicate `reviewarea_area/2.` indicates that its first argument is an area that is a review area of its second argument. A review area is to be scheduled on the same day and in an later timeslot than its counterpart. Incidentally, it is implemented with `isonsameday_area_area/2.` and `beforearea_area/2.`. Thus it is also best to split day specific instances of an area into their day variants.
+
+```clingo
+% After the stand-up meeting I want to review
+reviewarea_area(post_standup_meeting,standupmeeting).
+```
