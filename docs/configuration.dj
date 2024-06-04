@@ -68,21 +68,38 @@ area(evening_review).
 The predicate `beginarea/1.` indicates that its first argument is the begin
 area. The begin area has to be scheduled first on every day.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
 
 ```clingo
 % Start with the morning routine
 beginarea(morning_routine).
 ```
 
+::::
+
 ## `endarea/1.`
 
 The predicate `endarea/1.` indicates that its first argument is the end area.
 The end area has to be scheduled last on every day.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % Do the evening review last
 endarea(evening_review).
 ```
+
+::::
 
 ## `coretimeslot/1.`
 
@@ -90,8 +107,24 @@ The predicate `coretimeslot/1.` indicates that its first argument is a core time
 slot. A core time slot is a slot that has to have an area scheduled. Therfore,
 `slot_area/2.` will hold for some area on this slot.
 
+{.admonition}
+:::: tip
+
+::: admonition-title
+Tip
+:::
+
 This can be used to set a fixed worktime schedule, or which hours in a
 flexi-time agreement have to be attended.
+
+::::
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
 
 ```clingo
 % Monday to Thursday I have to work between 11:00 and 14:00
@@ -111,6 +144,8 @@ coretimeslot(Slot) :-
 	0 <= Quarterhour, Quarterhour <= 1.
 ```
 
+::::
+
 ## `area_blockminquarterhours/2.`
 
 The predicate `area_blockminquarterhours/2.` indicates that its first argument
@@ -118,10 +153,20 @@ is an area with a minimum block size in the second argument. Therefore, if
 the area is scheduled for a slot, then at least the minimum number of slots that
 follow is the second argument minus one.
 
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % A block of programming should be at least an hour
 area_blockminquarterhours(programming,1*4).
 ```
+
+::::
 
 ## `area_blockmaxquarterhours/2.`
 
@@ -130,10 +175,19 @@ is an area that with a maximum block size in the second argument. Therefore, if
 the area is scheduled for a slot, then at most the maximum number of slots that
 follow is the second argument minus one.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % A block of writing reports should at most be two hours
 area_blockmaxquarterhours(writing_reports,2*4).
 ```
+
+::::
 
 ## `area_dailyminquarterhours/2.`
 
@@ -142,10 +196,19 @@ area with a minimum number of quarterhours in the second argument applicable for
 each day. Therefore, the area is scheduled at least that many quarterhours for
 each day.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % On each day, I should program three and a half hours
 area_dailyminquarterhours(programming,3*4 + 2).
 ```
+
+::::
 
 ## `area_dailymaxquarterhours/2.`
 
@@ -154,10 +217,20 @@ area with a maximum number of quarterhours in the second argument, applicable
 for each day. Therefore, the area is scheduled at most that many quarterhours
 for each day.
 
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % On each day, I should improve my workflow no longer than one hour
 area_dailymaxquarterhours(improve_workflow,1*4).
 ```
+
+::::
 
 ## `area_weeklyminquarterhours/2.`
 
@@ -166,10 +239,20 @@ is an area with a minimum number of quarterhours in the second argument,
 applicable for the whole week. Therefore, the area is scheduled at least that
 many quarterhours during the whole week.
 
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % During the week, I usually need to write six hours of reports
 area_weeklyminquarterhours(writing_reports,6*4).
 ```
+
+::::
 
 ## `area_weeklymaxquarterhours/2.`
 
@@ -178,25 +261,50 @@ is an area with a maximum number of quarterhours in the second argument.
 Therefore, the area is scheduled at most that many quarterhours during the whole
 week.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % During the week, I usually want to improve my workflow for at most four hours
 area_weeklymaxquarterhours(improve_workflow,4*4).
 ```
+
+::::
 
 ## `weeklyminquarterhours/1.`
 
 The predicate `weeklyminquarterhours/1.` indicates that its argument is the
 minimum number of quarterhours that have to be scheduled for the week.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % I have a 38.5h work week
 weeklyminquarterhours(38*4 + 2).
 ```
 
+::::
+
 ## `weeklymaxquarterhours/1.`
 
 The predicate `weeklymaxquarterhours/1.` indicates that its argument is the
 maximum number of quarterhours that have to scheduled for the week.
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
 
 ```clingo
 % I don't want to do more than two hours of overtime
@@ -204,17 +312,27 @@ weeklymaxquarterhours(Min + 2*4) :-
 	weeklyminquarterhours(Min).
 ```
 
+::::
+
 ## `fixedslot_area/2.`
 
 The predicate `fixedslot_area/2.` indicates that its second argument is an area
 that can only be scheduled for time slots that appear as first argument.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % On Mondays at 10:00 we have a stand-up meeting for thirty minutes.
-
 fixedslot_area((monday, 10, 0), standup_meeting).
 fixedslot_area((monday, 10, 1), standup_meeting).
 ```
+
+::::
 
 ## `fluidarea_weight/2.`
 
@@ -223,12 +341,22 @@ that should be allocated as much slots as are available according to the weight
 given as the second argument. The accuracy of said weighting can be configured
 by setting the constant `fluidbuffer` which is `2` by default.
 
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % About 2/3 of my time should be allocated to producing widgets
 fluidarea_weight(producing_widgets,2).
 % About 1/3 of my time should be allocated to reading manuals.
 fluidarea_weight(reading_manuals,1).
 ```
+
+::::
 
 ## `isonsameday_area_area/2.`
 
@@ -254,16 +382,34 @@ counterpart. Incidentally, it is implemented with `isonsameday_area_area/2.` and
 `beforearea_area/2.`. Thus it is also best to split day specific instances of an
 area into their day variants.
 
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
 ```clingo
 % Before the stand-up meeting I want to prepare
 preparationarea_area(pre_standup_meeting,standupmeeting).
 ```
 
+::::
+
 ## `reviewarea_area/2.`
 
 The predicate `reviewarea_area/2.` indicates that its first argument is an area that is a review area of its second argument. A review area is to be scheduled on the same day and in an later timeslot than its counterpart. Incidentally, it is implemented with `isonsameday_area_area/2.` and `beforearea_area/2.`. Thus it is also best to split day specific instances of an area into their day variants.
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
 
 ```clingo
 % After the stand-up meeting I want to review
 reviewarea_area(post_standup_meeting,standupmeeting).
 ```
+
+::::
