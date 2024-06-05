@@ -1,0 +1,148 @@
+
+# Inversions
+
+Inversions describe how bad (or good) a given schedule is. These are
+separated into levels and have associated scales, both of which are subject
+to configuration.
+
+The following are supported:
+
+| name | default level | default scale |
+|------|--------------:|--------------:|
+| `fixed_slots` | 22 | 1 |
+| `beginarea_not_present` | 21 | 1 |
+| `endarea_not_present` | 21 | 1 |
+| `beginarea_not_first` | 20 | 1 |
+| `endarea_not_last` | 20 | 1 |
+| `coretimeslot_absent` | 19 | 1 |
+| `overbooked` | 18 | 1 |
+| `underbooked` | 18 | 1 |
+| `area_overbooked` | 17 | 1 |
+| `area_underbooked` | 17 | 1 |
+| `area_day_overbooked` | 16 | 1 |
+| `area_day_underbooked` | 16 | 1 |
+| `beforearea_not_before` | 15 | 1 |
+| `areas_not_on_same_day` | 14 | 1 |
+| `endarea_too_late` | -10 | 1 |
+| `beginarea_too_early` | -11 | 1 |
+| `linear_endarea_too_late` | -12 | 1 |
+| `linear_beginarea_too_early` | -13 | 1 |
+| `fluidarea_overbooked` | -14 | 1 |
+| `fluidarea_underbooked` | -14 | 1 |
+| `area_day_context_fragmentation` | -15 | 1 |
+| `area_day_context_saturation` | -15 | 1 |
+| `preparationarea_too_early` | -16 | 1 |
+| `reviewarea_too_late` | -16 | 1 |
+
+{.admonition}
+:::: info
+
+::: admonition-title
+Info
+:::
+
+By convention all levels above 0 are hard requirements, while 0 and below
+are soft requirements. Keep in mind that this is not enforced, all levels are
+implemented as soft requirements.
+
+::::
+
+Each inversion has two constants associated with them. One is has the `level_`
+prefix and the other the `scale_` prefix. `level_` defines in what order the
+scheduler tries to minimize inversion. For each level it tries to set the value
+as low as possible (and proof it is the lowest possible value), and then move to
+the next value.
+
+{.admonition}
+:::: tip
+
+::: admonition-title
+Tip
+:::
+
+Assigning the levels such that the least constraint has the highest level and
+most constraint has the lowest is usually the most performant. Keep in mind that
+this changes the semantic of the schedule.
+
+::::
+
+## `fixed_slots`
+
+Counts the difference between
+[`fixedslot_area/2.`](configuration.dj#fixedslot_area2) and `slot_area/2.` that
+have at least one element in common.
+
+## `beginarea_not_present`
+
+Counts the number of days where there is no slot for which the
+relation `slot_area/2.` has an area that is also in
+[`beginarea/1.`](configuration.dj#beginarea1).
+
+## `endarea_not_present`
+
+Counts the number of days where there is no slot for which the
+relation `slot_area/2.` has an area that is also in
+[`endarea/1.`](configuration.dj#endarea1).
+
+## `beginarea_not_first`
+
+Counts the number of days where there is any slot before another slot
+which the relation `slot_area/2.` has an area that is also in
+[`beginarea/1.`](configuration.dj#beginarea1).
+
+
+## `endarea_not_last`
+
+Counts the number of days where there is any slot before another slot
+which the relation `slot_area/2.` has an area that is also in
+[`endarea/1.`](configuration.dj#endarea1).
+
+## `coretimeslot_absent`
+
+Counts the number of slots that are in
+[`coretimeslot/1.`](configuration.dj#coretimeslot1) but are not in
+`slot_area/2.`.
+
+## `overbooked`
+
+Counts the number of slots that are in `slot_area/2.`, beyond
+[`weeklymaxquarterhours/1.`](configuration.dj#weeklymaxquarterhours1).
+
+## `underbooked`
+
+Counts the number of slots that are in `slot_area/2.`, below
+[`weeklyminquarterhours/1.`](configuration.dj#weeklyminquarterhours1).
+
+## `area_overbooked`
+
+Counts the number of slots that are in `slot_area/2.` and for each area that is
+also in
+[`area_weeklymaxquarterhours/2.`](configuration.dj#area_weeklymaxquarterhours2)
+and beyond the value of the second argument.
+
+## `area_underbooked`
+
+Counts the number of slots that are in `slot_area/2.` and for each area that is
+also in
+[`area_weeklyminquarterhours/2.`](configuration.dj#area_weeklyminquarterhours2)
+and below the value of the second argument.
+
+## `area_day_overbooked`
+
+Counts the number of slots in a day that are in `slot_area/2.` and for each area
+that is also in
+[`area_dailymaxquarterhours/2.`](configuration.dj#area_dailymaxquarterhours2)
+and beyond the value of the second argument.
+
+## `area_day_underbooked`
+
+Counts the number of slots in a day that are in `slot_area/2.` and for each area
+that is also in
+[`area_dailyminquarterhours/2.`](configuration.dj#area_dailyminquarterhours2)
+and below the value of the second argument.
+
+## `beforearea_not_before`
+
+Counts the number of slots in `slot_area/2.` where an area that is in the first
+argument of [`beforearea_area/2.`](configuration.dj#beforearea_area/2), does not
+precede the slot that is in the second argument.
