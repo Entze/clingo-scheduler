@@ -1,8 +1,8 @@
 # Home
 
 Scheduler is a timetable generator based on the answer set programming solver
-clingo. It is written to be highly customizable. This documentation provides an
-overview over the available options.
+[clingo](https://potassco.org/clingo/). It is written to be highly customizable.
+This documentation provides an overview over the available options.
 
 ## Usage
 

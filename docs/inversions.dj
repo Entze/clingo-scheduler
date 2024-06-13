@@ -146,3 +146,129 @@ and below the value of the second argument.
 Counts the number of slots in `slot_area/2.` where an area that is in the first
 argument of [`beforearea_area/2.`](configuration.dj#beforearea_area/2), does not
 precede the slot that is in the second argument.
+
+## `areas_not_on_same_day`
+
+Counts the number of slots in `slot_area/2.` where an area that is an argument
+of [`isonsameday_area_area/2.`](configuration.dj#isonasameday_area_area2) but
+there is no slot on the same day that is also in the same predicate.
+
+## `endarea_too_late`
+
+Counts the number of slots in `slot_area/2.` that are after the end of the slots
+that are in [`coretimeslot/1.`](configuration.dj#coretimeslot1), or if that is
+not present after the very first timeslot.
+
+## `beginarea_too_early`
+
+Counts the number of slots in `slot_area/2.` that are before the beginning of
+the slots that are in [`coretimeslot/1.`](configuration.dj#coretimeslot1), or if
+that is not present before the very last timeslot.
+
+## `linear_endarea_too_late`
+
+Similar to [`endarea_too_late`](inversions.dj#endarea_too_late), however each
+successive timeslot is weighted linearly higher.
+
+{.admonition}
+:::: note
+
+::: admonition-title
+Note
+:::
+
+This encodes the preference that a specific day should end as early as possible.
+For example staying two quarterhours longer is less desireable (penalty = 1 + 2)
+than staying one quarterhour on one day and another one on another (penalty = 1
++ 1).
+
+::::
+
+## `linear_beginarea_too_early`
+
+Similar to [`beginarea_too_early`](inversions.dj#beginarea_too_late), however each
+successive timeslot is weighted linearly higher.
+
+{.admonition}
+:::: note
+
+::: admonition-title
+Note
+:::
+
+This encodes the preference that a specific day should begin as late as possible.
+For example coming in two quarterhours earlier is less desireable (penalty = 1 + 2)
+than staying one quarterhour on one day and another one on another (penalty = 1
++ 1).
+
+::::
+
+## `fluidarea_overbooked`
+
+Counts the number of slots in `slot_area/2.` with an area in
+[`fluidarea_weight/2.`](configuration.dj#fluidarea_weight2) where the number of
+slots is greater than the allocated weight. The margin depends on the constant
+`fluidbuffer`.
+
+## `fluidarea_underbooked`
+
+Counts the number of slots in `slot_area/2.` with an area in
+[`fluidarea_weight/2.`](configuration.dj#fluidarea_weight2) where the number of
+slots is less than the allocated weight. The margin depends on the constant
+`fluidbuffer`.
+
+## `area_day_context_fragmentation`
+
+Counts the number of slots in `slot_area/2.` with an area in
+[`area_blockminquarterhours/2.`](configuration.dj#area_blockminquarerhours2),
+where the number of succeeding slots with the same area is less than the minimum
+number in the second argument.
+
+{.admonition}
+:::: example
+
+::: admonition-title
+Example
+:::
+
+Given the following configuration:
+
+```clingo
+
+area(a).
+area_blockminquarterhours(a,2).
+
+slot_area((monday,8,0),a).
+
+% ...
+
+slot_area((monday,12,0),a).
+slot_area((monday,12,1),a).
+slot_area((monday,12,2),a).
+
+```
+
+Would result in exactly one inversion because the block during 8:00 -- 8:15 is
+too short, while the block during 12:00 -- 12:45 is long enough.
+
+::::
+
+## `area_day_context_saturation`
+
+Counts the number of slots in `slot_area/2.` with an area in
+[`area_blockmaxquarterhours/2.`](configuration.dj#area_blockmaxquarerhours2),
+where the number of succeeding slots with the same area is greater than the
+maximum number in the second argument. See also [`area_day_context_fragmentation`](inversions.dj#area_day_context_fragmentation).
+
+## `preparationarea_too_early`
+
+Counts the distance between two slots in `slot_area/2.` with two
+distinct areas, where both are in
+[`preparationarea_area/2.`](configuration.dj#preparationarea_area2)
+respectively.
+
+## `reviewarea_too_late`
+
+Counts the distance between two slots in `slot_area/2.` with two distinct areas,
+where both are in [`reviewarea_area/2.`](configuration.dj#reviewarea_area2)
+respectively.

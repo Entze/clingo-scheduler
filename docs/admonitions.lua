@@ -13,7 +13,7 @@ end
 function Div(elem)
   if is_applicable(elem) then
     local inner_pandoc = pandoc.Pandoc(elem.content)
-    local inner_text = pandoc.write(inner_pandoc, 'markdown')
+    local inner_text = pandoc.write(inner_pandoc, 'commonmark')
     local inner_rawblock = pandoc.RawBlock('html', inner_text)
     local div = pandoc.Div({inner_rawblock}, elem.attr)
     local pandoc_ = pandoc.Pandoc({div})
