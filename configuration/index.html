@@ -1,0 +1,839 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../inversions/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Configuration - clingo-scheduler</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="clingo-scheduler" class="md-header__button md-logo" aria-label="clingo-scheduler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            clingo-scheduler
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="clingo-scheduler" class="md-nav__button md-logo" aria-label="clingo-scheduler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    clingo-scheduler
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#area1" class="md-nav__link">
+    <span class="md-ellipsis">
+      area/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beginarea1" class="md-nav__link">
+    <span class="md-ellipsis">
+      beginarea/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endarea1" class="md-nav__link">
+    <span class="md-ellipsis">
+      endarea/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coretimeslot1" class="md-nav__link">
+    <span class="md-ellipsis">
+      coretimeslot/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_blockminquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_blockminquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_blockmaxquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_blockmaxquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_dailyminquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_dailyminquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_dailymaxquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_dailymaxquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_weeklyminquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_weeklyminquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_weeklymaxquarterhours2" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_weeklymaxquarterhours/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weeklyminquarterhours1" class="md-nav__link">
+    <span class="md-ellipsis">
+      weeklyminquarterhours/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weeklymaxquarterhours1" class="md-nav__link">
+    <span class="md-ellipsis">
+      weeklymaxquarterhours/1.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixedslot_area2" class="md-nav__link">
+    <span class="md-ellipsis">
+      fixedslot_area/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluidarea_weight2" class="md-nav__link">
+    <span class="md-ellipsis">
+      fluidarea_weight/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isonsameday_area_area2" class="md-nav__link">
+    <span class="md-ellipsis">
+      isonsameday_area_area/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beforearea_area2" class="md-nav__link">
+    <span class="md-ellipsis">
+      beforearea_area/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparationarea_area2" class="md-nav__link">
+    <span class="md-ellipsis">
+      preparationarea_area/2.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewarea_area2" class="md-nav__link">
+    <span class="md-ellipsis">
+      reviewarea_area/2.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inversions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inversions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h1>
+<p>The configuration is a set of statements and rules written as logic program.
+There are a few predefined predicates, with a given semantic.</p>
+<ul>
+<li><code>area/1.</code></li>
+<li><code>beginarea/1.</code></li>
+<li><code>endarea/1.</code></li>
+<li><code>coretimeslot/1.</code></li>
+<li><code>area_blockminquarterhours/2.</code></li>
+<li><code>area_blockmaxquarterhours/2.</code></li>
+<li><code>area_dailyminquarterhours/2.</code></li>
+<li><code>area_dailymaxquarterhours/2.</code></li>
+<li><code>area_weeklyminquarterhours/2.</code></li>
+<li><code>area_weeklymaxquarterhours/2.</code></li>
+<li><code>weeklyminquarterhours/1.</code></li>
+<li><code>weeklymaxquarterhours/1.</code></li>
+<li><code>fixedslot_area/2.</code></li>
+<li><code>fluidarea_weight/2.</code></li>
+<li><code>isonsameday_area_area/2.</code></li>
+<li><code>beforeearea_area/2.</code></li>
+<li><code>preparationarea_area/2.</code></li>
+<li><code>reviewarea_area/2.</code></li>
+</ul>
+<p>Their semantic is defined below.</p>
+<p>Some use a <em>slot</em> as argument. A slot is a 3-tuple, consisting of the day, the
+hour and the ordinal number of the quarterhour. Therefore, the timeslot Tuesday,
+13:30 – 13:45 is denoted with <code>(tuesday,13,2)</code>.</p>
+<p>A minimal configuration consists of at least one <code>area/1.</code> statement. However,
+such a configuration would not return a very interesting schedule.</p>
+<h2 id="area1"><code>area/1.</code><a class="headerlink" href="#area1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area/1.</code> indicates that its first argument is an area that can,
+or cannot be scheduled.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>% My areas of concerns
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>area(morning_routine).
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>area(writing_reports).
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>area(programming).
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>area(improve_workflow).
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>area(reading_manuals).
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>area(producing_widgets).
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>area(pre_stand_up_meeting).
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>area(stand_up_meeting).
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>area(post_stand_up_meeting).
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>area(evening_review).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="beginarea1"><code>beginarea/1.</code><a class="headerlink" href="#beginarea1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>beginarea/1.</code> indicates that its first argument is the begin
+area. The begin area has to be scheduled first on every day.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>% Start with the morning routine
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>beginarea(morning_routine).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="endarea1"><code>endarea/1.</code><a class="headerlink" href="#endarea1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>endarea/1.</code> indicates that its first argument is the end area.
+The end area has to be scheduled last on every day.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>% Do the evening review last
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>endarea(evening_review).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="coretimeslot1"><code>coretimeslot/1.</code><a class="headerlink" href="#coretimeslot1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>coretimeslot/1.</code> indicates that its first argument is a core time
+slot. A core time slot is a slot that has to have an area scheduled. Therfore,
+<code>slot_area/2.</code> will hold for some area on this slot.</p>
+<div class="tip admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Tip
+&#10;</div>
+
+This can be used to set a fixed worktime schedule, or which hours in a
+flexi-time agreement have to be attended.
+
+</div>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>% Monday to Thursday I have to work between 11:00 and 14:00
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>coretimeslot(Slot) :-
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    slot(Slot), Slot = (Day,Hour,Quarterhour),
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    Day != friday,
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    11 &lt;= Hour, Hour &lt; 14.
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>% Fridays from 11:00 to 13:30
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>coretimeslot(Slot) :-
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    slot(Slot), Slot = (Day,Hour,Quarterhour),
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    Day = friday,
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    11 &lt;= Hour, Hour &lt; 13.
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>coretimeslot(Slot) :-
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    slot(Slot), Slot = (Day,Hour,Quarterhour),
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    Day = friday,
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    Hour = 13,
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    0 &lt;= Quarterhour, Quarterhour &lt;= 1.
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_blockminquarterhours2"><code>area_blockminquarterhours/2.</code><a class="headerlink" href="#area_blockminquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_blockminquarterhours/2.</code> indicates that its first argument
+is an area with a minimum block size in the second argument. Therefore, if
+the area is scheduled for a slot, then at least the minimum number of slots that
+follow is the second argument minus one.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>% A block of programming should be at least an hour
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>area_blockminquarterhours(programming,1*4).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_blockmaxquarterhours2"><code>area_blockmaxquarterhours/2.</code><a class="headerlink" href="#area_blockmaxquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_blockmaxquarterhours/2.</code> indicates that its first argument
+is an area that with a maximum block size in the second argument. Therefore, if
+the area is scheduled for a slot, then at most the maximum number of slots that
+follow is the second argument minus one.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>% A block of writing reports should at most be two hours
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>area_blockmaxquarterhours(writing_reports,2*4).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_dailyminquarterhours2"><code>area_dailyminquarterhours/2.</code><a class="headerlink" href="#area_dailyminquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_minquarterhours/2.</code> indicates that its first argument is an
+area with a minimum number of quarterhours in the second argument applicable for
+each day. Therefore, the area is scheduled at least that many quarterhours for
+each day.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>% On each day, I should program three and a half hours
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>area_dailyminquarterhours(programming,3*4 + 2).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_dailymaxquarterhours2"><code>area_dailymaxquarterhours/2.</code><a class="headerlink" href="#area_dailymaxquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_maxquarterhours/2.</code> indicates that its first argument is an
+area with a maximum number of quarterhours in the second argument, applicable
+for each day. Therefore, the area is scheduled at most that many quarterhours
+for each day.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>% On each day, I should improve my workflow no longer than one hour
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>area_dailymaxquarterhours(improve_workflow,1*4).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_weeklyminquarterhours2"><code>area_weeklyminquarterhours/2.</code><a class="headerlink" href="#area_weeklyminquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_weeklyminquarterhours/2.</code> indicates that its first argument
+is an area with a minimum number of quarterhours in the second argument,
+applicable for the whole week. Therefore, the area is scheduled at least that
+many quarterhours during the whole week.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>% During the week, I usually need to write six hours of reports
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>area_weeklyminquarterhours(writing_reports,6*4).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="area_weeklymaxquarterhours2"><code>area_weeklymaxquarterhours/2.</code><a class="headerlink" href="#area_weeklymaxquarterhours2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>area_weeklymaxquarterhours/2.</code> indicates that its first argument
+is an area with a maximum number of quarterhours in the second argument.
+Therefore, the area is scheduled at most that many quarterhours during the whole
+week.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>% During the week, I usually want to improve my workflow for at most four hours
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>area_weeklymaxquarterhours(improve_workflow,4*4).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="weeklyminquarterhours1"><code>weeklyminquarterhours/1.</code><a class="headerlink" href="#weeklyminquarterhours1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>weeklyminquarterhours/1.</code> indicates that its argument is the
+minimum number of quarterhours that have to be scheduled for the week.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>% I have a 38.5h work week
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>weeklyminquarterhours(38*4 + 2).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="weeklymaxquarterhours1"><code>weeklymaxquarterhours/1.</code><a class="headerlink" href="#weeklymaxquarterhours1" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>weeklymaxquarterhours/1.</code> indicates that its argument is the
+maximum number of quarterhours that have to scheduled for the week.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>% I don&#39;t want to do more than two hours of overtime
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>weeklymaxquarterhours(Min + 2*4) :-
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    weeklyminquarterhours(Min).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="fixedslot_area2"><code>fixedslot_area/2.</code><a class="headerlink" href="#fixedslot_area2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>fixedslot_area/2.</code> indicates that its second argument is an area
+that can only be scheduled for time slots that appear as first argument.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>% On Mondays at 10:00 we have a stand-up meeting for thirty minutes.
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>fixedslot_area((monday, 10, 0), standup_meeting).
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>fixedslot_area((monday, 10, 1), standup_meeting).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="fluidarea_weight2"><code>fluidarea_weight/2.</code><a class="headerlink" href="#fluidarea_weight2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>fluidarea_weight/2.</code> indicates that its first argument is an area
+that should be allocated as much slots as are available according to the weight
+given as the second argument. The accuracy of said weighting can be configured
+by setting the constant <code>fluidbuffer</code> which is <code>2</code> by default.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>% About 2/3 of my time should be allocated to producing widgets
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>fluidarea_weight(producing_widgets,2).
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>% About 1/3 of my time should be allocated to reading manuals.
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>fluidarea_weight(reading_manuals,1).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="isonsameday_area_area2"><code>isonsameday_area_area/2.</code><a class="headerlink" href="#isonsameday_area_area2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>isonsameday_area_area/2.</code> indicates that its first argument
+and its second argument are areas that should be allocated on the same
+day. This is usually declared implicitly via <code>preparationarea_area/2.</code> or
+<code>area_reviewarea/2</code>.</p>
+<h2 id="beforearea_area2"><code>beforearea_area/2.</code><a class="headerlink" href="#beforearea_area2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>beforearea_area/2.</code> indicates that its first argument is an area
+that needs to be scheduled before its second argument. Beware however, that
+every allocation of the first argument is a valid <em>before</em> for every subsequent
+allocation of the second argument. This is usually declared implicitly via
+<code>preparationarea_area/2.</code> or <code>area_reviewarea/2</code>.</p>
+<h2 id="preparationarea_area2"><code>preparationarea_area/2.</code><a class="headerlink" href="#preparationarea_area2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>preparationarea_area/2.</code> indicates that its first argument
+is an area that is a preparation area of its second argument. A preparation
+area is to be scheduled on the same day and in an earlier timeslot than its
+counterpart. Incidentally, it is implemented with <code>isonsameday_area_area/2.</code> and
+<code>beforearea_area/2.</code>. Thus it is also best to split day specific instances of an
+area into their day variants.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>% Before the stand-up meeting I want to prepare
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>preparationarea_area(pre_standup_meeting,standupmeeting).
+</span></code></pre></div>
+
+</div>
+
+<h2 id="reviewarea_area2"><code>reviewarea_area/2.</code><a class="headerlink" href="#reviewarea_area2" title="Permanent link">&para;</a></h2>
+<p>The predicate <code>reviewarea_area/2.</code> indicates that its first argument is an area that is a review area of its second argument. A review area is to be scheduled on the same day and in an later timeslot than its counterpart. Incidentally, it is implemented with <code>isonsameday_area_area/2.</code> and <code>beforearea_area/2.</code>. Thus it is also best to split day specific instances of an area into their day variants.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>% After the stand-up meeting I want to review
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>reviewarea_area(post_standup_meeting,standupmeeting).
+</span></code></pre></div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>

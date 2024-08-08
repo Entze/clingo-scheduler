@@ -1,0 +1,884 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../configuration/">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.24">
+    
+    
+      
+        <title>Inversions - clingo-scheduler</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#inversions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="clingo-scheduler" class="md-header__button md-logo" aria-label="clingo-scheduler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            clingo-scheduler
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inversions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="clingo-scheduler" class="md-nav__button md-logo" aria-label="clingo-scheduler" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    clingo-scheduler
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Inversions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Inversions
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fixed_slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      fixed_slots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beginarea_not_present" class="md-nav__link">
+    <span class="md-ellipsis">
+      beginarea_not_present
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endarea_not_present" class="md-nav__link">
+    <span class="md-ellipsis">
+      endarea_not_present
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beginarea_not_first" class="md-nav__link">
+    <span class="md-ellipsis">
+      beginarea_not_first
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endarea_not_last" class="md-nav__link">
+    <span class="md-ellipsis">
+      endarea_not_last
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coretimeslot_absent" class="md-nav__link">
+    <span class="md-ellipsis">
+      coretimeslot_absent
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      overbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#underbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      underbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_overbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_overbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_underbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_underbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_day_overbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_day_overbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_day_underbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_day_underbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beforearea_not_before" class="md-nav__link">
+    <span class="md-ellipsis">
+      beforearea_not_before
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#areas_not_on_same_day" class="md-nav__link">
+    <span class="md-ellipsis">
+      areas_not_on_same_day
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endarea_too_late" class="md-nav__link">
+    <span class="md-ellipsis">
+      endarea_too_late
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#beginarea_too_early" class="md-nav__link">
+    <span class="md-ellipsis">
+      beginarea_too_early
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear_endarea_too_late" class="md-nav__link">
+    <span class="md-ellipsis">
+      linear_endarea_too_late
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear_beginarea_too_early" class="md-nav__link">
+    <span class="md-ellipsis">
+      linear_beginarea_too_early
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluidarea_overbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      fluidarea_overbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fluidarea_underbooked" class="md-nav__link">
+    <span class="md-ellipsis">
+      fluidarea_underbooked
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_day_context_fragmentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_day_context_fragmentation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#area_day_context_saturation" class="md-nav__link">
+    <span class="md-ellipsis">
+      area_day_context_saturation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparationarea_too_early" class="md-nav__link">
+    <span class="md-ellipsis">
+      preparationarea_too_early
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reviewarea_too_late" class="md-nav__link">
+    <span class="md-ellipsis">
+      reviewarea_too_late
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="inversions">Inversions<a class="headerlink" href="#inversions" title="Permanent link">&para;</a></h1>
+<p>Inversions describe how bad (or good) a given schedule is. These are
+separated into levels and have associated scales, both of which are subject
+to configuration.</p>
+<p>The following are supported:</p>
+<table>
+<thead>
+<tr class="header">
+<th><p>name</p></th>
+<th style="text-align: right;"><p>default level</p></th>
+<th style="text-align: right;"><p>default scale</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><code>fixed_slots</code></p></td>
+<td style="text-align: right;"><p>22</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>beginarea_not_present</code></p></td>
+<td style="text-align: right;"><p>21</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>endarea_not_present</code></p></td>
+<td style="text-align: right;"><p>21</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>beginarea_not_first</code></p></td>
+<td style="text-align: right;"><p>20</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>endarea_not_last</code></p></td>
+<td style="text-align: right;"><p>20</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>coretimeslot_absent</code></p></td>
+<td style="text-align: right;"><p>19</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>overbooked</code></p></td>
+<td style="text-align: right;"><p>18</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>underbooked</code></p></td>
+<td style="text-align: right;"><p>18</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>area_overbooked</code></p></td>
+<td style="text-align: right;"><p>17</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>area_underbooked</code></p></td>
+<td style="text-align: right;"><p>17</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>area_day_overbooked</code></p></td>
+<td style="text-align: right;"><p>16</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>area_day_underbooked</code></p></td>
+<td style="text-align: right;"><p>16</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>beforearea_not_before</code></p></td>
+<td style="text-align: right;"><p>15</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>areas_not_on_same_day</code></p></td>
+<td style="text-align: right;"><p>14</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>endarea_too_late</code></p></td>
+<td style="text-align: right;"><p>-10</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>beginarea_too_early</code></p></td>
+<td style="text-align: right;"><p>-11</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>linear_endarea_too_late</code></p></td>
+<td style="text-align: right;"><p>-12</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>linear_beginarea_too_early</code></p></td>
+<td style="text-align: right;"><p>-13</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>fluidarea_overbooked</code></p></td>
+<td style="text-align: right;"><p>-14</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>fluidarea_underbooked</code></p></td>
+<td style="text-align: right;"><p>-14</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>area_day_context_fragmentation</code></p></td>
+<td style="text-align: right;"><p>-15</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>area_day_context_saturation</code></p></td>
+<td style="text-align: right;"><p>-15</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="odd">
+<td><p><code>preparationarea_too_early</code></p></td>
+<td style="text-align: right;"><p>-16</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+<tr class="even">
+<td><p><code>reviewarea_too_late</code></p></td>
+<td style="text-align: right;"><p>-16</p></td>
+<td style="text-align: right;"><p>1</p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="info admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Info
+&#10;</div>
+
+By convention all levels above 0 are hard requirements, while 0 and below
+are soft requirements. Keep in mind that this is not enforced, all levels are
+implemented as soft requirements.
+
+</div>
+
+<p>Each inversion has two constants associated with them. One is has the <code>level_</code>
+prefix and the other the <code>scale_</code> prefix. <code>level_</code> defines in what order the
+scheduler tries to minimize inversion. For each level it tries to set the value
+as low as possible (and proof it is the lowest possible value), and then move to
+the next value.</p>
+<div class="tip admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Tip
+&#10;</div>
+
+Assigning the levels such that the least constraint has the highest level and
+most constraint has the lowest is usually the most performant. Keep in mind that
+this changes the semantic of the schedule.
+
+</div>
+
+<h2 id="fixed_slots"><code>fixed_slots</code><a class="headerlink" href="#fixed_slots" title="Permanent link">&para;</a></h2>
+<p>Counts the difference between
+<a href="../configuration/#fixedslot_area2"><code>fixedslot_area/2.</code></a> and <code>slot_area/2.</code> that
+have at least one element in common.</p>
+<h2 id="beginarea_not_present"><code>beginarea_not_present</code><a class="headerlink" href="#beginarea_not_present" title="Permanent link">&para;</a></h2>
+<p>Counts the number of days where there is no slot for which the
+relation <code>slot_area/2.</code> has an area that is also in
+<a href="../configuration/#beginarea1"><code>beginarea/1.</code></a>.</p>
+<h2 id="endarea_not_present"><code>endarea_not_present</code><a class="headerlink" href="#endarea_not_present" title="Permanent link">&para;</a></h2>
+<p>Counts the number of days where there is no slot for which the
+relation <code>slot_area/2.</code> has an area that is also in
+<a href="../configuration/#endarea1"><code>endarea/1.</code></a>.</p>
+<h2 id="beginarea_not_first"><code>beginarea_not_first</code><a class="headerlink" href="#beginarea_not_first" title="Permanent link">&para;</a></h2>
+<p>Counts the number of days where there is any slot before another slot
+which the relation <code>slot_area/2.</code> has an area that is also in
+<a href="../configuration/#beginarea1"><code>beginarea/1.</code></a>.</p>
+<h2 id="endarea_not_last"><code>endarea_not_last</code><a class="headerlink" href="#endarea_not_last" title="Permanent link">&para;</a></h2>
+<p>Counts the number of days where there is any slot before another slot
+which the relation <code>slot_area/2.</code> has an area that is also in
+<a href="../configuration/#endarea1"><code>endarea/1.</code></a>.</p>
+<h2 id="coretimeslot_absent"><code>coretimeslot_absent</code><a class="headerlink" href="#coretimeslot_absent" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots that are in
+<a href="../configuration/#coretimeslot1"><code>coretimeslot/1.</code></a> but are not in
+<code>slot_area/2.</code>.</p>
+<h2 id="overbooked"><code>overbooked</code><a class="headerlink" href="#overbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots that are in <code>slot_area/2.</code>, beyond
+<a href="../configuration/#weeklymaxquarterhours1"><code>weeklymaxquarterhours/1.</code></a>.</p>
+<h2 id="underbooked"><code>underbooked</code><a class="headerlink" href="#underbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots that are in <code>slot_area/2.</code>, below
+<a href="../configuration/#weeklyminquarterhours1"><code>weeklyminquarterhours/1.</code></a>.</p>
+<h2 id="area_overbooked"><code>area_overbooked</code><a class="headerlink" href="#area_overbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots that are in <code>slot_area/2.</code> and for each area that is
+also in
+<a href="../configuration/#area_weeklymaxquarterhours2"><code>area_weeklymaxquarterhours/2.</code></a>
+and beyond the value of the second argument.</p>
+<h2 id="area_underbooked"><code>area_underbooked</code><a class="headerlink" href="#area_underbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots that are in <code>slot_area/2.</code> and for each area that is
+also in
+<a href="../configuration/#area_weeklyminquarterhours2"><code>area_weeklyminquarterhours/2.</code></a>
+and below the value of the second argument.</p>
+<h2 id="area_day_overbooked"><code>area_day_overbooked</code><a class="headerlink" href="#area_day_overbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in a day that are in <code>slot_area/2.</code> and for each area
+that is also in
+<a href="../configuration/#area_dailymaxquarterhours2"><code>area_dailymaxquarterhours/2.</code></a>
+and beyond the value of the second argument.</p>
+<h2 id="area_day_underbooked"><code>area_day_underbooked</code><a class="headerlink" href="#area_day_underbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in a day that are in <code>slot_area/2.</code> and for each area
+that is also in
+<a href="../configuration/#area_dailyminquarterhours2"><code>area_dailyminquarterhours/2.</code></a>
+and below the value of the second argument.</p>
+<h2 id="beforearea_not_before"><code>beforearea_not_before</code><a class="headerlink" href="#beforearea_not_before" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> where an area that is in the first
+argument of <a href="../configuration/#beforearea_area/2"><code>beforearea_area/2.</code></a>, does not
+precede the slot that is in the second argument.</p>
+<h2 id="areas_not_on_same_day"><code>areas_not_on_same_day</code><a class="headerlink" href="#areas_not_on_same_day" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> where an area that is an argument
+of <a href="../configuration/#isonasameday_area_area2"><code>isonsameday_area_area/2.</code></a> but
+there is no slot on the same day that is also in the same predicate.</p>
+<h2 id="endarea_too_late"><code>endarea_too_late</code><a class="headerlink" href="#endarea_too_late" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> that are after the end of the slots
+that are in <a href="../configuration/#coretimeslot1"><code>coretimeslot/1.</code></a>, or if that is
+not present after the very first timeslot.</p>
+<h2 id="beginarea_too_early"><code>beginarea_too_early</code><a class="headerlink" href="#beginarea_too_early" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> that are before the beginning of
+the slots that are in <a href="../configuration/#coretimeslot1"><code>coretimeslot/1.</code></a>, or if
+that is not present before the very last timeslot.</p>
+<h2 id="linear_endarea_too_late"><code>linear_endarea_too_late</code><a class="headerlink" href="#linear_endarea_too_late" title="Permanent link">&para;</a></h2>
+<p>Similar to <a href="./#endarea_too_late"><code>endarea_too_late</code></a>, however each
+successive timeslot is weighted linearly higher.</p>
+<div class="note admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Note
+&#10;</div>
+
+This encodes the preference that a specific day should end as early as possible.
+For example staying two quarterhours longer is less desireable (penalty = 1 + 2)
+than staying one quarterhour on one day and another one on another (penalty = 1
++ 1).
+
+</div>
+
+<h2 id="linear_beginarea_too_early"><code>linear_beginarea_too_early</code><a class="headerlink" href="#linear_beginarea_too_early" title="Permanent link">&para;</a></h2>
+<p>Similar to <a href="./#beginarea_too_late"><code>beginarea_too_early</code></a>, however each
+successive timeslot is weighted linearly higher.</p>
+<div class="note admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Note
+&#10;</div>
+
+This encodes the preference that a specific day should begin as late as possible.
+For example coming in two quarterhours earlier is less desireable (penalty = 1 + 2)
+than staying one quarterhour on one day and another one on another (penalty = 1
++ 1).
+
+</div>
+
+<h2 id="fluidarea_overbooked"><code>fluidarea_overbooked</code><a class="headerlink" href="#fluidarea_overbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> with an area in
+<a href="../configuration/#fluidarea_weight2"><code>fluidarea_weight/2.</code></a> where the number of
+slots is greater than the allocated weight. The margin depends on the constant
+<code>fluidbuffer</code>.</p>
+<h2 id="fluidarea_underbooked"><code>fluidarea_underbooked</code><a class="headerlink" href="#fluidarea_underbooked" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> with an area in
+<a href="../configuration/#fluidarea_weight2"><code>fluidarea_weight/2.</code></a> where the number of
+slots is less than the allocated weight. The margin depends on the constant
+<code>fluidbuffer</code>.</p>
+<h2 id="area_day_context_fragmentation"><code>area_day_context_fragmentation</code><a class="headerlink" href="#area_day_context_fragmentation" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> with an area in
+<a href="../configuration/#area_blockminquarerhours2"><code>area_blockminquarterhours/2.</code></a>,
+where the number of succeeding slots with the same area is less than the minimum
+number in the second argument.</p>
+<div class="example admonition" data-wrapper="1">
+<div class="admonition-title" data-wrapper="1">
+Example
+&#10;</div>
+
+Given the following configuration:
+
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>area(a).
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>area_blockminquarterhours(a,2).
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>slot_area((monday,8,0),a).
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>% ...
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>slot_area((monday,12,0),a).
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>slot_area((monday,12,1),a).
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>slot_area((monday,12,2),a).
+</span></code></pre></div>
+
+Would result in exactly one inversion because the block during 8:00 – 8:15 is
+too short, while the block during 12:00 – 12:45 is long enough.
+
+</div>
+
+<h2 id="area_day_context_saturation"><code>area_day_context_saturation</code><a class="headerlink" href="#area_day_context_saturation" title="Permanent link">&para;</a></h2>
+<p>Counts the number of slots in <code>slot_area/2.</code> with an area in
+<a href="../configuration/#area_blockmaxquarerhours2"><code>area_blockmaxquarterhours/2.</code></a>,
+where the number of succeeding slots with the same area is greater than the
+maximum number in the second argument. See also <a href="./#area_day_context_fragmentation"><code>area_day_context_fragmentation</code></a>.</p>
+<h2 id="preparationarea_too_early"><code>preparationarea_too_early</code><a class="headerlink" href="#preparationarea_too_early" title="Permanent link">&para;</a></h2>
+<p>Counts the distance between two slots in <code>slot_area/2.</code> with two
+distinct areas, where both are in
+<a href="../configuration/#preparationarea_area2"><code>preparationarea_area/2.</code></a>
+respectively.</p>
+<h2 id="reviewarea_too_late"><code>reviewarea_too_late</code><a class="headerlink" href="#reviewarea_too_late" title="Permanent link">&para;</a></h2>
+<p>Counts the distance between two slots in <code>slot_area/2.</code> with two distinct areas,
+where both are in <a href="../configuration/#reviewarea_area2"><code>reviewarea_area/2.</code></a>
+respectively.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+    
+  </body>
+</html>
