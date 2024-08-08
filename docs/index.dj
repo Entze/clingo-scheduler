@@ -33,4 +33,6 @@ awk -f ./src/extract/extract_models.awk models.log \
 
 ## Configuration
 
-To configure what scheduler should schedule reference [configuration](configuration.dj). To configure _how_ the scheduler should schedule view [inversions](inversions.dj).
+To configure what scheduler should schedule reference
+[configuration](configuration.dj). To configure _how_ the scheduler should
+schedule view [inversions](inversions.dj).
