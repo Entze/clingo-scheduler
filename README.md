@@ -34,5 +34,7 @@ awk -f ./src/extract/extract_models.awk models.log \
 
 ## Configuration
 
-To configure what scheduler should schedule reference configuration. To
-configure _how_ the scheduler should schedule view inversions.
+To configure what scheduler should schedule reference
+[configuration](https://entze.github.io/clingo-scheduler/configuration/). To
+configure _how_ the scheduler should schedule view
+[inversions](https://entze.github.io/clingo-scheduler/inversions/).
