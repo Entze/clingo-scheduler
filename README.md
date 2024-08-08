@@ -1,0 +1,38 @@
+# clingo-scheduler
+
+
+Scheduler is a timetable generator based on the answer set programming solver
+[clingo](https://potassco.org/clingo/). It is written to be highly customizable.
+This documentation provides an overview over the available options.
+
+## Usage
+
+Given a configuration file `configuration.lp`, run the following command.
+
+```bash
+clingo --models=0 \
+	src/main/base/primitives.lp \
+	src/main/base/running_balance.lp \
+	src/main/base/ordering.lp \
+	src/main/inversions.lp \
+	src/main/penalties.lp \
+	src/main/schedule.lp \
+	configuration.lp
+```
+
+Save the result as `models.log`.
+
+The following command to extract the last (current best) model, convert it to
+csv, and sort it.
+
+```bash
+awk -f ./src/extract/extract_models.awk models.log \
+	| tail -n 1 \
+	| ./src/extract/model_to_csv.bash \
+	| ./src/extract/sort_csv.bash
+```
+
+## Configuration
+
+To configure what scheduler should schedule reference configuration. To
+configure _how_ the scheduler should schedule view inversions.
