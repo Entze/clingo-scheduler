@@ -1,4 +1,4 @@
-site_name: "Scheduler"
+site_name: "clingo-scheduler"
 docs_dir: "docs_md"
 theme:
   name: "material"
